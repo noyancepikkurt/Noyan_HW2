@@ -6,12 +6,20 @@
 //
 
 import UIKit
+import NewsAPI
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        NetworkService.shared.fetchNews(pathUrl: "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=faZR5Xae70i6feQPpThPhxRY1JVG1z8n") { result in
+            switch result {
+            case .success(let success):
+                print(success?.results)
+            case .failure(let failure):
+                print("failure")
+            }
+        }
     }
 
 
