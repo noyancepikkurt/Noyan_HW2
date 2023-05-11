@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -24,9 +25,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="251" height="131"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6R-8q-ULa">
-                                <rect key="frame" x="8" y="139" width="235" height="20.333333333333343"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <rect key="frame" x="8" y="139" width="235" height="91.666666666666686"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="copyright" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QVc-Bu-eEc">
+                                <rect key="frame" x="0.0" y="232.66666666666666" width="247" height="29.333333333333343"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" systemColor="systemGrayColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -36,7 +43,12 @@
                             <constraint firstAttribute="trailing" secondItem="Wgo-EG-eXn" secondAttribute="trailing" id="A35-no-Vh6"/>
                             <constraint firstItem="Wgo-EG-eXn" firstAttribute="height" secondItem="d0Q-Kz-MJW" secondAttribute="height" multiplier="0.5" id="Gn0-zr-S8n"/>
                             <constraint firstItem="z6R-8q-ULa" firstAttribute="top" secondItem="Wgo-EG-eXn" secondAttribute="bottom" constant="8" id="LxI-C5-acV"/>
+                            <constraint firstItem="z6R-8q-ULa" firstAttribute="height" secondItem="d0Q-Kz-MJW" secondAttribute="height" multiplier="0.35" id="NkA-Ig-k9q"/>
+                            <constraint firstAttribute="trailing" secondItem="QVc-Bu-eEc" secondAttribute="trailing" constant="4" id="YGf-ck-Lvz"/>
                             <constraint firstItem="Wgo-EG-eXn" firstAttribute="leading" secondItem="d0Q-Kz-MJW" secondAttribute="leading" id="ZZU-Fr-Vs5"/>
+                            <constraint firstItem="QVc-Bu-eEc" firstAttribute="top" secondItem="z6R-8q-ULa" secondAttribute="bottom" constant="2" id="fym-2M-rl0"/>
+                            <constraint firstItem="QVc-Bu-eEc" firstAttribute="leading" secondItem="d0Q-Kz-MJW" secondAttribute="leading" id="hIp-eX-6QB"/>
+                            <constraint firstAttribute="bottom" secondItem="QVc-Bu-eEc" secondAttribute="bottom" id="v6c-bx-hHo"/>
                             <constraint firstAttribute="trailing" secondItem="z6R-8q-ULa" secondAttribute="trailing" constant="8" id="y5A-Y8-5bW"/>
                             <constraint firstItem="z6R-8q-ULa" firstAttribute="leading" secondItem="d0Q-Kz-MJW" secondAttribute="leading" constant="8" id="yfg-hR-QH8"/>
                         </constraints>
@@ -62,6 +74,7 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="copyrightLabel" destination="QVc-Bu-eEc" id="9Wi-Mg-cQc"/>
                 <outlet property="homeImageView" destination="Wgo-EG-eXn" id="cW0-ha-Ajm"/>
                 <outlet property="homeLabel" destination="z6R-8q-ULa" id="Z7T-ST-dnZ"/>
             </connections>
@@ -71,6 +84,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
