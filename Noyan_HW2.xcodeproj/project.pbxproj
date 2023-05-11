@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		5D49C8342A0C267600869B97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D49C8332A0C267600869B97 /* AppDelegate.swift */; };
 		5D49C8362A0C267600869B97 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D49C8352A0C267600869B97 /* SceneDelegate.swift */; };
-		5D49C8382A0C267600869B97 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D49C8372A0C267600869B97 /* ViewController.swift */; };
+		5D49C8382A0C267600869B97 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D49C8372A0C267600869B97 /* HomeViewController.swift */; };
 		5D49C83B2A0C267600869B97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D49C8392A0C267600869B97 /* Main.storyboard */; };
 		5D49C83D2A0C267700869B97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D49C83C2A0C267700869B97 /* Assets.xcassets */; };
 		5D49C8402A0C267700869B97 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D49C83E2A0C267700869B97 /* LaunchScreen.storyboard */; };
@@ -20,13 +20,17 @@
 		5DB23DCF2A0C280A00789691 /* ShadowAndCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB23DCE2A0C280A00789691 /* ShadowAndCornerRadius.swift */; };
 		5DB23DD12A0C285500789691 /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB23DD02A0C285500789691 /* AlertExtension.swift */; };
 		5DB23DD52A0C28C800789691 /* NewsAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 5DB23DD42A0C28C800789691 /* NewsAPI */; };
+		5DB8A3482A0CE68B0097DA51 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB8A3462A0CE68B0097DA51 /* HomeCollectionViewCell.swift */; };
+		5DB8A3492A0CE68B0097DA51 /* HomeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DB8A3472A0CE68B0097DA51 /* HomeCollectionViewCell.xib */; };
+		5DB8BCB42A0CF12B00B01484 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 5DB8BCB32A0CF12B00B01484 /* SDWebImage */; };
+		5DF4D3452A0D0B8B00A05414 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF4D3442A0D0B8B00A05414 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5D49C8302A0C267600869B97 /* Noyan_HW2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Noyan_HW2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D49C8332A0C267600869B97 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D49C8352A0C267600869B97 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5D49C8372A0C267600869B97 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5D49C8372A0C267600869B97 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5D49C83A2A0C267600869B97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5D49C83C2A0C267700869B97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D49C83F2A0C267700869B97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +42,9 @@
 		5DB23DCE2A0C280A00789691 /* ShadowAndCornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowAndCornerRadius.swift; sourceTree = "<group>"; };
 		5DB23DD02A0C285500789691 /* AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
 		5DB23DD22A0C288500789691 /* NewsAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = NewsAPI; path = ../NewsAPI; sourceTree = "<group>"; };
+		5DB8A3462A0CE68B0097DA51 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
+		5DB8A3472A0CE68B0097DA51 /* HomeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCollectionViewCell.xib; sourceTree = "<group>"; };
+		5DF4D3442A0D0B8B00A05414 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DB8BCB42A0CF12B00B01484 /* SDWebImage in Frameworks */,
 				5DB23DD52A0C28C800789691 /* NewsAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,8 +82,8 @@
 			isa = PBXGroup;
 			children = (
 				5D49C8482A0C26FA00869B97 /* App */,
+				5DB8A3442A0CE66B0097DA51 /* Screens */,
 				5D49C8472A0C26F400869B97 /* Extensions */,
-				5D49C8372A0C267600869B97 /* ViewController.swift */,
 				5D49C8392A0C267600869B97 /* Main.storyboard */,
 				5D49C83E2A0C267700869B97 /* LaunchScreen.storyboard */,
 				5D49C8412A0C267700869B97 /* Info.plist */,
@@ -113,6 +121,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5DB8A3442A0CE66B0097DA51 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				5DB8BCB52A0D0B0100B01484 /* Details */,
+				5DB8A3452A0CE6700097DA51 /* Home */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		5DB8A3452A0CE6700097DA51 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				5D49C8372A0C267600869B97 /* HomeViewController.swift */,
+				5DB8A3462A0CE68B0097DA51 /* HomeCollectionViewCell.swift */,
+				5DB8A3472A0CE68B0097DA51 /* HomeCollectionViewCell.xib */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		5DB8BCB52A0D0B0100B01484 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				5DF4D3442A0D0B8B00A05414 /* DetailViewController.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -131,6 +166,7 @@
 			name = Noyan_HW2;
 			packageProductDependencies = (
 				5DB23DD42A0C28C800789691 /* NewsAPI */,
+				5DB8BCB32A0CF12B00B01484 /* SDWebImage */,
 			);
 			productName = Noyan_HW2;
 			productReference = 5D49C8302A0C267600869B97 /* Noyan_HW2.app */;
@@ -160,6 +196,9 @@
 				Base,
 			);
 			mainGroup = 5D49C8272A0C267600869B97;
+			packageReferences = (
+				5DB8BCB22A0CF12B00B01484 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = 5D49C8312A0C267600869B97 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -177,6 +216,7 @@
 				5D49C8402A0C267700869B97 /* LaunchScreen.storyboard in Resources */,
 				5D49C83D2A0C267700869B97 /* Assets.xcassets in Resources */,
 				5D49C83B2A0C267600869B97 /* Main.storyboard in Resources */,
+				5DB8A3492A0CE68B0097DA51 /* HomeCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,12 +227,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DF4D3452A0D0B8B00A05414 /* DetailViewController.swift in Sources */,
 				5DB23DCF2A0C280A00789691 /* ShadowAndCornerRadius.swift in Sources */,
 				5D49C84E2A0C277B00869B97 /* UIView+Extension.swift in Sources */,
 				5D49C84C2A0C271300869B97 /* CollectionViewCell+Extension.swift in Sources */,
 				5D49C8502A0C27C000869B97 /* HideKeyboardExtension.swift in Sources */,
 				5D49C84A2A0C270A00869B97 /* CollectionView+Extension.swift in Sources */,
-				5D49C8382A0C267600869B97 /* ViewController.swift in Sources */,
+				5DB8A3482A0CE68B0097DA51 /* HomeCollectionViewCell.swift in Sources */,
+				5D49C8382A0C267600869B97 /* HomeViewController.swift in Sources */,
 				5D49C8342A0C267600869B97 /* AppDelegate.swift in Sources */,
 				5DB23DD12A0C285500789691 /* AlertExtension.swift in Sources */,
 				5D49C8362A0C267600869B97 /* SceneDelegate.swift in Sources */,
@@ -414,10 +456,26 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		5DB8BCB22A0CF12B00B01484 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		5DB23DD42A0C28C800789691 /* NewsAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NewsAPI;
+		};
+		5DB8BCB32A0CF12B00B01484 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5DB8BCB22A0CF12B00B01484 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
