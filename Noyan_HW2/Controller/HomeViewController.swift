@@ -10,26 +10,36 @@ import NewsAPI
 
 final class HomeViewController: UIViewController, LoadingShowable {
     @IBOutlet private var collectionView: UICollectionView!
+    @IBOutlet private var filterBarButton: UIBarButtonItem!
+    @IBOutlet private var searchBar: UISearchBar!
     private var news = [News]()
     private var selectedNew: News?
-    @IBOutlet var filterBarButton: UIBarButtonItem!
-    let screenWidth = UIScreen.main.bounds.width - 10
-    let screenHeight = UIScreen.main.bounds.height / 4
-    var selectedRow = 7
-    let categories = NetworkConstants.allCases.map { $0 }
-        
+    private var isSearching: Bool = false
+    private var searchedItems = [News]() {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
+   private let screenWidth = UIScreen.main.bounds.width - 10
+   private let screenHeight = UIScreen.main.bounds.height / 4
+   private var selectedRow = 7
+   private let categories = NetworkConstants.allCases.map { $0 }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.hideKeyboardWhenTappedAround()
         fetchDatas(type: .home)
         setupUICollectionView()
         collectionView.register(cellType: HomeCollectionViewCell.self)
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+    }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        self.collectionView.collectionViewLayout.invalidateLayout()
     }
     
-        override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-            super.viewWillTransition(to: size, with: coordinator)
-            self.collectionView.collectionViewLayout.invalidateLayout()
-        }
+    @IBAction func sideMenuButtonClicked(_ sender: Any) {
+    }
     
     @IBAction func filterButtonClicked(_ sender: Any) {
         let vc = UIViewController()
@@ -50,7 +60,6 @@ final class HomeViewController: UIViewController, LoadingShowable {
             self.getFilterCategories(categoriesName: categories[selectedRow])
             self.showLoading()
         }))
-
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -87,16 +96,25 @@ final class HomeViewController: UIViewController, LoadingShowable {
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.news.count
+        if isSearching {
+            return self.searchedItems.count
+        } else {
+            return self.news.count
+        }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeCell(cellType: HomeCollectionViewCell.self, indexPath: indexPath)
-        let new = self.news[indexPath.item]
-        cell.setup(model: new)
+        if isSearching {
+            let new = self.searchedItems[indexPath.item]
+            cell.setup(model: new)
+        } else {
+            let new = self.news[indexPath.item]
+            cell.setup(model: new)
+        }
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.selectedNew = self.news[indexPath.item]
         performSegue(withIdentifier: "toDetailsVC", sender: nil)
@@ -134,6 +152,21 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 60
+    }
+}
+
+extension HomeViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        isSearching = true
+        self.filterArray(searchText: searchText)
+    }
+    func filterArray(searchText:String) {
+        if searchText.trimmingCharacters(in: .whitespacesAndNewlines) != "" && isSearching == true {
+            searchedItems = news.filter { $0.title!.starts(with: searchText)}
+        } else {
+            isSearching = false
+            searchedItems = news
+        }
     }
 }
 

@@ -204,6 +204,7 @@
 			mainGroup = 5D49C8272A0C267600869B97;
 			packageReferences = (
 				5DB8BCB22A0CF12B00B01484 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				5DC1C1172A0E6E5400FAD0BC /* XCRemoteSwiftPackageReference "SideMenu" */,
 			);
 			productRefGroup = 5D49C8312A0C267600869B97 /* Products */;
 			projectDirPath = "";
@@ -473,6 +474,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.0.0;
+			};
+		};
+		5DC1C1172A0E6E5400FAD0BC /* XCRemoteSwiftPackageReference "SideMenu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jonkykong/SideMenu.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

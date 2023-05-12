@@ -11,11 +11,11 @@ import SDWebImage
 import SafariServices
 
 final class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
-    @IBOutlet var detailLabel: UILabel!
-    @IBOutlet var detailImageView: UIImageView!
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var authorDetail: UILabel!
-    @IBOutlet var seeMoreButton: UIButton!
+    @IBOutlet private var detailLabel: UILabel!
+    @IBOutlet private var detailImageView: UIImageView!
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var authorDetail: UILabel!
+    @IBOutlet private var seeMoreButton: UIButton!
     var selectedNew: News?
     
     override func viewDidLoad() {
@@ -37,38 +37,23 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
         } else {
             titleLabel.text = selectedNew?.title
         }
-       
         authorDetail.text = selectedNew?.multimedia?[0].copyright
     }
     
     @IBAction func moreDetailButtonClicked(_ sender: Any) {
         if selectedNew?.url != ""  && selectedNew?.url != nil {
-            let task = URLSession.shared.dataTask(with: URL(string: (selectedNew?.url!)!)!) { data, response, error in
-                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-                if error != nil {
-                    print(data)
-                } else {
-                    print(error)
-                }
-            }
-            task.resume()
             openURL()
         } else {
             UIAlertController.alertMessage(title: "Error", message: "There is no website to go", vc: self)
         }
-        
     }
     
-    func openURL() {
+    private func openURL() {
         if let url = selectedNew?.url {
             guard let urlString = URL(string: url) else { return }
             let safariViewController = SFSafariViewController(url: urlString)
             safariViewController.delegate = self
             present(safariViewController, animated: true, completion: nil)
         }
-    }
-    
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        // Safari View Controller kapatıldığında gerçekleştirilecek işlemler
     }
 }
