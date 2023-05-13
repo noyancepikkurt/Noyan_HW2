@@ -24,14 +24,16 @@ final class HomeViewController: UIViewController, LoadingShowable {
     private let screenHeight = UIScreen.main.bounds.height / 4
     private var selectedRow = 7
     private let categories = NetworkConstants.allCases.map { $0 }
+    private let notFoundImageView = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.hideKeyboardWhenTappedAround()
         fetchDatas(type: .home)
-        collectionView.setupCollectionView(self.collectionView)
-        collectionView.register(cellType: HomeCollectionViewCell.self)
+        collectionView?.setupCollectionView(self.collectionView)
+        collectionView?.register(cellType: HomeCollectionViewCell.self)
+        setupNotFoundImageView()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -79,12 +81,28 @@ final class HomeViewController: UIViewController, LoadingShowable {
                     self.news = filteredNews
                     self.navigationItem.title = type.rawValue.capitalized
                     self.hideLoading()
-                    self.collectionView.reloadData()
+                    self.collectionView?.reloadData()
                 }
             case .failure(_):
-                break
+                UIAlertController.alertMessage(title: "The app is in offline mode", message: "You can only read the news articles in your favorites", vc: self)
+                guard let tabBarController = self.tabBarController else { return }
+                tabBarController.selectedIndex = 1
             }
         }
+    }
+    
+    private func setupNotFoundImageView() {
+        view.addSubview(notFoundImageView)
+        notFoundImageView.isHidden = true
+        notFoundImageView.image = UIImage(named: "notFoundImage")
+        notFoundImageView.translatesAutoresizingMaskIntoConstraints = false
+        notFoundImageView.contentMode = .scaleAspectFit
+        NSLayoutConstraint.activate([
+            notFoundImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            notFoundImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            notFoundImageView.widthAnchor.constraint(equalToConstant: 350),
+            notFoundImageView.heightAnchor.constraint(equalToConstant: 600)
+        ])
     }
 }
 
@@ -156,9 +174,15 @@ extension HomeViewController: UISearchBarDelegate {
     func filterArray(searchText:String) {
         if searchText.trimmingCharacters(in: .whitespacesAndNewlines) != "" && isSearching == true {
             searchedItems = news.filter { $0.title!.starts(with: searchText)}
+            if searchedItems.isEmpty{
+                notFoundImageView.isHidden = false
+            } else {
+                notFoundImageView.isHidden = true
+            }
         } else {
             isSearching = false
             searchedItems = news
+            notFoundImageView.isHidden = true
         }
     }
 }

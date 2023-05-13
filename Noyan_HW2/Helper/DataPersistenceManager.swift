@@ -9,7 +9,7 @@ import UIKit
 import NewsAPI
 import CoreData
 
-class DataPersistenceManager {
+final class DataPersistenceManager {
     static let shared = DataPersistenceManager()
     
     func saveNew(model: News, isFavorite: Bool, completion: @escaping ((Result<Void, Error>)->Void)) {
