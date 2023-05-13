@@ -16,4 +16,12 @@ extension UICollectionView {
         guard let cell = dequeueReusableCell(withReuseIdentifier: cellType.identifier, for: indexPath) as? T else { fatalError("error")}
         return cell
     }
+    
+    func setupCollectionView(_ collectionView: UICollectionView) {
+        let design : UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        design.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        design.minimumInteritemSpacing = 0
+        design.minimumLineSpacing = 10
+        collectionView.collectionViewLayout = design
+    }
 }

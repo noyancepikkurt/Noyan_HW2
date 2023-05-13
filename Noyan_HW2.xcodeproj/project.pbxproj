@@ -19,6 +19,11 @@
 		5D49C8502A0C27C000869B97 /* HideKeyboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D49C84F2A0C27C000869B97 /* HideKeyboardExtension.swift */; };
 		5D6442D52A0D739800B11C56 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6442D42A0D739800B11C56 /* LoadingView.swift */; };
 		5D6442D82A0D73A800B11C56 /* LoadingShowable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6442D72A0D73A800B11C56 /* LoadingShowable.swift */; };
+		5D72EE042A0EC27D00EFAA18 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EE032A0EC27D00EFAA18 /* SplashViewController.swift */; };
+		5D72EE062A0EC4FE00EFAA18 /* FavoriteNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EE052A0EC4FE00EFAA18 /* FavoriteNewsViewController.swift */; };
+		5D7FA2CE2A0F9259007816B7 /* Noyan_HW2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5D7FA2CC2A0F9259007816B7 /* Noyan_HW2.xcdatamodeld */; };
+		5D7FA2DD2A0FE46F007816B7 /* DataPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7FA2DC2A0FE46F007816B7 /* DataPersistenceManager.swift */; };
+		5D7FA2DF2A0FE9ED007816B7 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7FA2DE2A0FE9ED007816B7 /* UIViewController+Extension.swift */; };
 		5DB23DCF2A0C280A00789691 /* ShadowAndCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB23DCE2A0C280A00789691 /* ShadowAndCornerRadius.swift */; };
 		5DB23DD12A0C285500789691 /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB23DD02A0C285500789691 /* AlertExtension.swift */; };
 		5DB23DD52A0C28C800789691 /* NewsAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 5DB23DD42A0C28C800789691 /* NewsAPI */; };
@@ -43,6 +48,11 @@
 		5D49C84F2A0C27C000869B97 /* HideKeyboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboardExtension.swift; sourceTree = "<group>"; };
 		5D6442D42A0D739800B11C56 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		5D6442D72A0D73A800B11C56 /* LoadingShowable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingShowable.swift; sourceTree = "<group>"; };
+		5D72EE032A0EC27D00EFAA18 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		5D72EE052A0EC4FE00EFAA18 /* FavoriteNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteNewsViewController.swift; sourceTree = "<group>"; };
+		5D7FA2CD2A0F9259007816B7 /* Noyan_HW2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Noyan_HW2.xcdatamodel; sourceTree = "<group>"; };
+		5D7FA2DC2A0FE46F007816B7 /* DataPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPersistenceManager.swift; sourceTree = "<group>"; };
+		5D7FA2DE2A0FE9ED007816B7 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		5DB23DCE2A0C280A00789691 /* ShadowAndCornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowAndCornerRadius.swift; sourceTree = "<group>"; };
 		5DB23DD02A0C285500789691 /* AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
 		5DB23DD22A0C288500789691 /* NewsAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = NewsAPI; path = ../NewsAPI; sourceTree = "<group>"; };
@@ -85,7 +95,8 @@
 		5D49C8322A0C267600869B97 /* Noyan_HW2 */ = {
 			isa = PBXGroup;
 			children = (
-				5D6442D62A0D739B00B11C56 /* Utilities */,
+				5D7FA2E02A0FED4E007816B7 /* Helper */,
+				5D6442D62A0D739B00B11C56 /* Utility */,
 				5D49C8482A0C26FA00869B97 /* App */,
 				5D6442D32A0D4FA400B11C56 /* Views */,
 				5DB8A3442A0CE66B0097DA51 /* Controller */,
@@ -93,6 +104,7 @@
 				5D49C8392A0C267600869B97 /* Main.storyboard */,
 				5D49C83E2A0C267700869B97 /* LaunchScreen.storyboard */,
 				5D49C8412A0C267700869B97 /* Info.plist */,
+				5D7FA2CC2A0F9259007816B7 /* Noyan_HW2.xcdatamodeld */,
 			);
 			path = Noyan_HW2;
 			sourceTree = "<group>";
@@ -106,6 +118,7 @@
 				5D49C84F2A0C27C000869B97 /* HideKeyboardExtension.swift */,
 				5DB23DCE2A0C280A00789691 /* ShadowAndCornerRadius.swift */,
 				5DB23DD02A0C285500789691 /* AlertExtension.swift */,
+				5D7FA2DE2A0FE9ED007816B7 /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -130,12 +143,20 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		5D6442D62A0D739B00B11C56 /* Utilities */ = {
+		5D6442D62A0D739B00B11C56 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
 				5D6442D72A0D73A800B11C56 /* LoadingShowable.swift */,
 			);
-			path = Utilities;
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		5D7FA2E02A0FED4E007816B7 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				5D7FA2DC2A0FE46F007816B7 /* DataPersistenceManager.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		5DB23DD32A0C28C800789691 /* Frameworks */ = {
@@ -150,6 +171,8 @@
 			children = (
 				5DF4D3442A0D0B8B00A05414 /* DetailViewController.swift */,
 				5D49C8372A0C267600869B97 /* HomeViewController.swift */,
+				5D72EE032A0EC27D00EFAA18 /* SplashViewController.swift */,
+				5D72EE052A0EC4FE00EFAA18 /* FavoriteNewsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -204,7 +227,6 @@
 			mainGroup = 5D49C8272A0C267600869B97;
 			packageReferences = (
 				5DB8BCB22A0CF12B00B01484 /* XCRemoteSwiftPackageReference "SDWebImage" */,
-				5DC1C1172A0E6E5400FAD0BC /* XCRemoteSwiftPackageReference "SideMenu" */,
 			);
 			productRefGroup = 5D49C8312A0C267600869B97 /* Products */;
 			projectDirPath = "";
@@ -234,12 +256,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D7FA2DF2A0FE9ED007816B7 /* UIViewController+Extension.swift in Sources */,
+				5D7FA2CE2A0F9259007816B7 /* Noyan_HW2.xcdatamodeld in Sources */,
 				5DF4D3452A0D0B8B00A05414 /* DetailViewController.swift in Sources */,
 				5DB23DCF2A0C280A00789691 /* ShadowAndCornerRadius.swift in Sources */,
 				5D49C84E2A0C277B00869B97 /* UIView+Extension.swift in Sources */,
+				5D72EE062A0EC4FE00EFAA18 /* FavoriteNewsViewController.swift in Sources */,
 				5D49C84C2A0C271300869B97 /* CollectionViewCell+Extension.swift in Sources */,
 				5D49C8502A0C27C000869B97 /* HideKeyboardExtension.swift in Sources */,
+				5D72EE042A0EC27D00EFAA18 /* SplashViewController.swift in Sources */,
 				5D6442D82A0D73A800B11C56 /* LoadingShowable.swift in Sources */,
+				5D7FA2DD2A0FE46F007816B7 /* DataPersistenceManager.swift in Sources */,
 				5D6442D52A0D739800B11C56 /* LoadingView.swift in Sources */,
 				5D49C84A2A0C270A00869B97 /* CollectionView+Extension.swift in Sources */,
 				5DB8A3482A0CE68B0097DA51 /* HomeCollectionViewCell.swift in Sources */,
@@ -401,7 +428,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -430,7 +457,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -476,14 +503,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		5DC1C1172A0E6E5400FAD0BC /* XCRemoteSwiftPackageReference "SideMenu" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jonkykong/SideMenu.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -497,6 +516,19 @@
 			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		5D7FA2CC2A0F9259007816B7 /* Noyan_HW2.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5D7FA2CD2A0F9259007816B7 /* Noyan_HW2.xcdatamodel */,
+			);
+			currentVersion = 5D7FA2CD2A0F9259007816B7 /* Noyan_HW2.xcdatamodel */;
+			path = Noyan_HW2.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5D49C8282A0C267600869B97 /* Project object */;
 }

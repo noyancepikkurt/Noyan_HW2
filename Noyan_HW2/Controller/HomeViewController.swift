@@ -20,19 +20,20 @@ final class HomeViewController: UIViewController, LoadingShowable {
             self.collectionView.reloadData()
         }
     }
-   private let screenWidth = UIScreen.main.bounds.width - 10
-   private let screenHeight = UIScreen.main.bounds.height / 4
-   private var selectedRow = 7
-   private let categories = NetworkConstants.allCases.map { $0 }
+    private let screenWidth = UIScreen.main.bounds.width - 10
+    private let screenHeight = UIScreen.main.bounds.height / 4
+    private var selectedRow = 7
+    private let categories = NetworkConstants.allCases.map { $0 }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.hideKeyboardWhenTappedAround()
         fetchDatas(type: .home)
-        setupUICollectionView()
+        collectionView.setupCollectionView(self.collectionView)
         collectionView.register(cellType: HomeCollectionViewCell.self)
     }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         self.collectionView.collectionViewLayout.invalidateLayout()
@@ -81,17 +82,9 @@ final class HomeViewController: UIViewController, LoadingShowable {
                     self.collectionView.reloadData()
                 }
             case .failure(_):
-                print("hata")
+                break
             }
         }
-    }
-    
-    private func setupUICollectionView() {
-        let design : UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        design.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        design.minimumInteritemSpacing = 0
-        design.minimumLineSpacing = 10
-        collectionView!.collectionViewLayout = design
     }
 }
 

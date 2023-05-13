@@ -37,6 +37,20 @@ final class HomeCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    func setupForCoreData(model: NewsItems) {
+        preparePosterImage(with: model.imageUrl)
+        if model.title == "" || model.title == nil {
+            homeLabel.text = "Title didn't found"
+        } else {
+            homeLabel.text = model.title
+        }
+        if model.author == "" || model.author == nil {
+            copyrightLabel.text = "Author didn't found"
+        } else {
+            copyrightLabel.text = model.author
+        }
+    }
+    
     private func preparePosterImage(with urlString: String?) {
         guard let fullPath = urlString else { return }
         if let url = URL(string: fullPath) {
