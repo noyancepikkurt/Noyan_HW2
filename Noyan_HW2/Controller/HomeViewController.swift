@@ -7,12 +7,19 @@
 
 import UIKit
 import NewsAPI
+import CoreLocation
 
-final class HomeViewController: UIViewController, LoadingShowable {
+final class HomeViewController: UIViewController, LoadingShowable, CLLocationManagerDelegate {
     @IBOutlet private var collectionView: UICollectionView!
     @IBOutlet private var filterBarButton: UIBarButtonItem!
     @IBOutlet private var searchBar: UISearchBar!
+    @IBOutlet private var containerView: UIView!
+    @IBOutlet private var cityLabel: UILabel!
+    @IBOutlet private var weatherLabel: UILabel!
+    @IBOutlet private var usdLabel: UILabel!
+    @IBOutlet private var stackView: UIStackView!
     private var news = [News]()
+    private var weathers = [Weather]()
     private var selectedNew: News?
     private var isSearching: Bool = false
     private var searchedItems = [News]() {
@@ -23,17 +30,27 @@ final class HomeViewController: UIViewController, LoadingShowable {
     private let screenWidth = UIScreen.main.bounds.width - 10
     private let screenHeight = UIScreen.main.bounds.height / 4
     private var selectedRow = 7
-    private let categories = NetworkConstants.allCases.map { $0 }
+    private let categories = NetworkConstantsNews.allCases.map { $0 }
     private let notFoundImageView = UIImageView()
+    private var containerViewOpen: Bool = true
+    let locationManager = CLLocationManager()
+    private var lat: Double = 0
+    private var lon: Double = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.stackView.isHidden = true
+        self.containerView.isHidden = true
+        containerViewOpen = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.hideKeyboardWhenTappedAround()
-        fetchDatas(type: .home)
         collectionView?.setupCollectionView(self.collectionView)
         collectionView?.register(cellType: HomeCollectionViewCell.self)
         setupNotFoundImageView()
+        self.hideKeyboardWhenTappedAround()
+        fetchDatas(type: .home)
+        fetchWeather()
+        locationManagerConfig()
+        locationManagerFuncs()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -41,10 +58,28 @@ final class HomeViewController: UIViewController, LoadingShowable {
         self.collectionView.collectionViewLayout.invalidateLayout()
     }
     
-    @IBAction func sideMenuButtonClicked(_ sender: Any) {
+    @IBAction private func sideMenuButtonClicked(_ sender: Any) {
+        containerView.isHidden = false
+        if !containerViewOpen {
+            containerViewOpen = true
+            tabBarController?.tabBar.isHidden = true
+            containerView.frame = CGRect(x: 0, y: 44, width: 0, height: 808)
+            UIView.animate(withDuration: 0.5) {
+                self.containerView.frame = CGRect(x: 0, y: 44, width: 240, height: 808)
+                self.stackView.isHidden = false
+            }
+        } else {
+            containerViewOpen = false
+            containerView.isHidden = true
+            tabBarController?.tabBar.isHidden = false
+            containerView.frame = CGRect(x: 0, y: 44, width: 0, height: 808)
+            UIView.animate(withDuration: 1) {
+                self.containerView.frame = CGRect(x: 0, y: 44, width: 240, height: 808)
+            }
+        }
     }
     
-    @IBAction func filterButtonClicked(_ sender: Any) {
+    @IBAction private func filterButtonClicked(_ sender: Any) {
         let vc = UIViewController()
         vc.preferredContentSize = CGSize(width: screenWidth, height: screenHeight)
         let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height:screenHeight))
@@ -54,7 +89,7 @@ final class HomeViewController: UIViewController, LoadingShowable {
         vc.view.addSubview(pickerView)
         pickerView.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor).isActive = true
         pickerView.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor).isActive = true
-        let alert = UIAlertController(title: "Select Category ", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Select Category ", message: "Please select the category you want to filter", preferredStyle: .actionSheet)
         alert.setValue(vc, forKey: "contentViewController")
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in
         }))
@@ -66,11 +101,30 @@ final class HomeViewController: UIViewController, LoadingShowable {
         self.present(alert, animated: true, completion: nil)
     }
     
-    private func getFilterCategories(categoriesName: NetworkConstants) {
+    func locationManagerConfig() {
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    }
+    
+    private func locationManagerFuncs() {
+        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+            if let location = locations.last {
+                lat = location.coordinate.latitude
+                lon = location.coordinate.longitude
+            }
+        }
+        
+        func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+            print("Error getting location: \(error.localizedDescription)")
+        }
+    }
+    
+    private func getFilterCategories(categoriesName: NetworkConstantsNews) {
         fetchDatas(type: categoriesName)
     }
     
-    private func fetchDatas(type: NetworkConstants) {
+    private func fetchDatas(type: NetworkConstantsNews) {
         NetworkService.shared.fetchNews(pathUrl: type.path) { result in
             switch result {
             case .success(let success):
@@ -87,6 +141,21 @@ final class HomeViewController: UIViewController, LoadingShowable {
                 UIAlertController.alertMessage(title: "The app is in offline mode", message: "You can only read the news articles in your favorites", vc: self)
                 guard let tabBarController = self.tabBarController else { return }
                 tabBarController.selectedIndex = 1
+            }
+        }
+    }
+    
+    private func fetchWeather() {
+        let pathUrl = "\(NetworkAPIConstantsWeather.baseURL.rawValue)lat=\(lat)&lon=\(lon)&appid=\(NetworkAPIConstantsWeather.apiKEY.rawValue)"
+        NetworkService.shared.fetchWeather(pathUrl: pathUrl) { result in
+            switch result {
+            case .success(let success):
+                if let weather = success {
+                    guard let weatherTemp = weather.temp else { return }
+                    self.weatherLabel.text = String(Int(weatherTemp-272.15))
+                }
+            case .failure(_):
+                break
             }
         }
     }
@@ -114,6 +183,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return self.news.count
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeCell(cellType: HomeCollectionViewCell.self, indexPath: indexPath)
         if isSearching {
@@ -171,6 +241,7 @@ extension HomeViewController: UISearchBarDelegate {
         isSearching = true
         self.filterArray(searchText: searchText)
     }
+    
     func filterArray(searchText:String) {
         if searchText.trimmingCharacters(in: .whitespacesAndNewlines) != "" && isSearching == true {
             searchedItems = news.filter { $0.title!.starts(with: searchText)}

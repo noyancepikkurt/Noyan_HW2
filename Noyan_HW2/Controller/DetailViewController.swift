@@ -23,8 +23,10 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
         didSet {
             if isFavorite {
                 likeImage.image = UIImage(systemName: "star.fill")
+                likeImage.tintColor = .red
             } else {
                 likeImage.image = UIImage(systemName: "star")
+                likeImage.tintColor = .black
             }
         }
     }
@@ -37,7 +39,8 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Detail"
-        setupLikeImage()
+        navigationItem.rightBarButtonItem = self.likeImage
+        isFavorite = false
         configure()
     }
     
@@ -111,11 +114,6 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
             UIAlertController.alertMessage(title: "Error", message: "There is no website to go", vc: self)
         }
     }
-    private func setupLikeImage() {
-        navigationItem.rightBarButtonItem = self.likeImage
-        likeImage.image = UIImage(systemName: "star")
-        likeImage.tintColor = .red
-    }
     
     private func configure() {
         if selectedNew?.abstract == "" || selectedNew?.abstract == nil {
@@ -132,7 +130,7 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
         }
         authorDetail.text = selectedNew?.multimedia?[0].copyright
     }
-
+    
     private func openURL() {
         if let url = selectedNew?.url {
             guard let urlString = URL(string: url) else { return }
