@@ -48,9 +48,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
         setupNotFoundImageView()
         self.hideKeyboardWhenTappedAround()
         fetchDatas(type: .home)
-        fetchWeather()
         locationManagerConfig()
-        locationManagerFuncs()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -104,20 +102,24 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     func locationManagerConfig() {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
     }
     
-    private func locationManagerFuncs() {
-        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-            if let location = locations.last {
-                lat = location.coordinate.latitude
-                lon = location.coordinate.longitude
-            }
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
         }
-        
-        func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-            print("Error getting location: \(error.localizedDescription)")
-        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        lat = location.coordinate.latitude
+        lon = location.coordinate.longitude
+        locationManager.stopUpdatingLocation()
+        fetchWeather()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error getting location: \(error.localizedDescription)")
     }
     
     private func getFilterCategories(categoriesName: NetworkConstantsNews) {
@@ -146,7 +148,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     }
     
     private func fetchWeather() {
-        let pathUrl = "\(NetworkAPIConstantsWeather.baseURL.rawValue)lat=\(lat)&lon=\(lon)&appid=\(NetworkAPIConstantsWeather.apiKEY.rawValue)"
+        let pathUrl = "\(NetworkAPIConstantsWeather.baseURL.rawValue)lat=\(self.lat)&lon=\(self.lon)&appid=\(NetworkAPIConstantsWeather.apiKEY.rawValue)"
         NetworkService.shared.fetchWeather(pathUrl: pathUrl) { result in
             switch result {
             case .success(let success):
