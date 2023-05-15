@@ -21,6 +21,7 @@ final class DataPersistenceManager {
         item.author = model.multimedia?[0].copyright
         item.abstract = model.abstract
         item.isFavorite = isFavorite
+        item.url = model.url
         
         do {
             try context.save()

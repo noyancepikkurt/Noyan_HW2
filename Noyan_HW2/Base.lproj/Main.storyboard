@@ -244,28 +244,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rnP-3S-x6p">
-                                <rect key="frame" x="16" y="74" width="361" height="284"/>
+                                <rect key="frame" x="16" y="89" width="361" height="284"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZc-5D-yqP">
-                                <rect key="frame" x="16" y="433.99999999999994" width="361" height="170.33333333333331"/>
+                                <rect key="frame" x="16" y="448.99999999999994" width="361" height="170.33333333333331"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbr-9F-QHy">
-                                <rect key="frame" x="16" y="366" width="361" height="64"/>
+                                <rect key="frame" x="16" y="381" width="361" height="64"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0U0-VL-aM0">
-                                <rect key="frame" x="16" y="604.33333333333337" width="361" height="19"/>
+                                <rect key="frame" x="16" y="619.33333333333337" width="361" height="19"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" systemColor="systemGrayColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l7X-pr-d6N">
-                                <rect key="frame" x="118" y="643.33333333333337" width="156" height="86.666666666666629"/>
+                                <rect key="frame" x="118" y="658.33333333333337" width="156" height="86.666666666666629"/>
                                 <color key="backgroundColor" systemColor="labelColor"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
@@ -312,6 +317,7 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
+                    <navigationItem key="navigationItem" id="pwq-49-GZw"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="authorDetail" destination="0U0-VL-aM0" id="znB-tc-U2A"/>
@@ -321,6 +327,7 @@
                         <outlet property="seeMoreButton" destination="l7X-pr-d6N" id="cMY-rq-ylI"/>
                         <outlet property="titleLabel" destination="xbr-9F-QHy" id="GcL-vl-zr4"/>
                         <segue destination="m5A-lM-wjr" kind="show" identifier="toWebVC" id="EBI-gS-ucP"/>
+                        <segue destination="Tjb-fx-wTX" kind="show" identifier="toFavoritesVC" id="Aa7-PD-SQc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDZ-Xs-9q8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -352,7 +359,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uPQ-Wa-CHJ">
-                                <rect key="frame" x="0.0" y="44" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="710"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="SBg-x5-N9x">
                                     <size key="itemSize" width="128" height="128"/>
@@ -388,6 +395,7 @@
                     <navigationItem key="navigationItem" id="k9X-x4-huQ"/>
                     <connections>
                         <outlet property="favoriteCollectionView" destination="uPQ-Wa-CHJ" id="uW1-4h-lFd"/>
+                        <segue destination="a82-vA-4Dc" kind="show" identifier="toDetailVCfromFavoritesVC" id="OV1-LP-G7t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tew-5A-Ja3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -495,6 +503,10 @@
             <point key="canvasLocation" x="1049.6183206106871" y="679.57746478873241"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Aa7-PD-SQc"/>
+        <segue reference="OV1-LP-G7t"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="decrease" width="170.66667175292969" height="170.66667175292969"/>
         <image name="gearshape" catalog="system" width="128" height="123"/>

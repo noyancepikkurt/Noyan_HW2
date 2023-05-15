@@ -10,6 +10,7 @@ import NewsAPI
 
 final class FavoriteNewsViewController: UIViewController {
     @IBOutlet private var favoriteCollectionView: UICollectionView!
+    private var selectedNew = NewsItems()
     private var favoriteNews = [NewsItems]() {
         didSet {
             favoriteCollectionView.reloadData()
@@ -49,6 +50,21 @@ extension FavoriteNewsViewController: UICollectionViewDelegate, UICollectionView
         let cell = collectionView.dequeCell(cellType: HomeCollectionViewCell.self, indexPath: indexPath)
         cell.setupForCoreData(model: self.favoriteNews[indexPath.item])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.selectedNew = self.favoriteNews[indexPath.item]
+        performSegue(withIdentifier: "toDetailVCfromFavoritesVC", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDetailVCfromFavoritesVC" {
+            if #available(iOS 13.0, *) {
+                let destination = segue.destination as? DetailViewController
+                self.selectedNew.isFavorite = true
+                destination?.selectedNewFromFavorite = self.selectedNew
+            }
+        }
     }
 }
 

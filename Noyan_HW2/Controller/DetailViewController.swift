@@ -20,6 +20,7 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
     @IBOutlet private var seeMoreButton: UIButton!
     @IBOutlet private var likeImage: UIBarButtonItem!
     var selectedNew: News?
+    var selectedNewFromFavorite: NewsItems?
     private var coreDataNew: NewsItems?
     private var isFavorite: Bool = false {
         didSet {
@@ -45,7 +46,38 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
         configure()
     }
     
+    @IBAction private func moreDetailButtonClicked(_ sender: Any) {
+        if selectedNewFromFavorite?.url != ""  && selectedNewFromFavorite?.url != nil {
+            openURL()
+        }
+        if selectedNew?.url != ""  && selectedNew?.url != nil {
+            openURL()
+        } else {
+            UIAlertController.alertMessage(title: "Error", message: "*There is no website to go*", vc: self)
+        }
+    }
+    
     @IBAction func likeImage(_ sender: Any) {
+        if let selectedNewFavorite = self.selectedNewFromFavorite {
+            if selectedNewFavorite.isFavorite {
+                UIAlertController.alertActionMessage(title: "Remove from your favorites?", message: "Are you sure you want to remove this news from your favorites?", vc: self) { [unowned self] bool in
+                    if bool {
+                        DataPersistenceManager.shared.deleteNew(model: selectedNewFavorite) { result in
+                            switch result {
+                            case .success(_):
+                                self.isFavorite = false
+                                self.showToast(message: "Removed from favorites", font: .systemFont(ofSize: 12))
+                                self.navigationController?.popViewController(animated: true)
+                            case .failure(_):
+                                break
+                            }
+                        }
+                    } else {
+                        self.isFavorite = true
+                    }
+                }
+            }
+        }
         guard let selectedNew else { return }
         if isFavorite {
             if let coreDataNew {
@@ -108,31 +140,51 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
         }
     }
     
-    @IBAction private func moreDetailButtonClicked(_ sender: Any) {
-        if selectedNew?.url != ""  && selectedNew?.url != nil {
-            openURL()
+    private func configure() {
+        if selectedNew != nil {
+            if selectedNew?.abstract == "" || selectedNew?.abstract == nil {
+                detailLabel.text = "*Description didn't found*"
+            } else {
+                detailLabel.text = selectedNew?.abstract
+            }
+            guard let url = selectedNew?.multimedia?[0].url else { return }
+            detailImageView.sd_setImage(with: URL(string: url))
+            if selectedNew?.title == "" || selectedNew?.title == nil {
+                titleLabel.text = "*Title didn't found*"
+            } else {
+                titleLabel.text = selectedNew?.title
+            }
+            authorDetail.text = selectedNew?.multimedia?[0].copyright
         } else {
-            UIAlertController.alertMessage(title: "Error", message: "*There is no website to go*", vc: self)
+            likeImage.image = UIImage(systemName: "star.fill")
+            likeImage.tintColor = .red
+            configureFromFavoriteVC()
         }
     }
     
-    private func configure() {
-        if selectedNew?.abstract == "" || selectedNew?.abstract == nil {
+    private func configureFromFavoriteVC() {
+        if selectedNewFromFavorite?.abstract == "" || selectedNewFromFavorite?.abstract == nil {
             detailLabel.text = "*Description didn't found*"
         } else {
-            detailLabel.text = selectedNew?.abstract
+            detailLabel.text = selectedNewFromFavorite?.abstract
         }
-        guard let url = selectedNew?.multimedia?[0].url else { return }
+        guard let url = selectedNewFromFavorite?.imageUrl else { return }
         detailImageView.sd_setImage(with: URL(string: url))
-        if selectedNew?.title == "" || selectedNew?.title == nil {
+        if selectedNewFromFavorite?.title == "" || selectedNewFromFavorite?.title == nil {
             titleLabel.text = "*Title didn't found*"
         } else {
-            titleLabel.text = selectedNew?.title
+            titleLabel.text = selectedNewFromFavorite?.title
         }
-        authorDetail.text = selectedNew?.multimedia?[0].copyright
+        authorDetail.text = selectedNewFromFavorite?.author
     }
     
     private func openURL() {
+        if let url = selectedNewFromFavorite?.url {
+            guard let urlString = URL(string: url) else { return }
+            let safariViewController = SFSafariViewController(url: urlString)
+            safariViewController.delegate = self
+            present(safariViewController, animated: true, completion: nil)
+        }
         if let url = selectedNew?.url {
             guard let urlString = URL(string: url) else { return }
             let safariViewController = SFSafariViewController(url: urlString)

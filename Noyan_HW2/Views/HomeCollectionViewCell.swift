@@ -43,7 +43,7 @@ final class HomeCollectionViewCell: UICollectionViewCell {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let favoriteNews):
-                    if let index = favoriteNews.firstIndex(where: { $0.title == model.title }) {
+                    if favoriteNews.firstIndex(where: { $0.title == model.title }) != nil {
                         self.favoriteImageView.image = UIImage(systemName: "star.fill")
                     }
                 case .failure(_):
