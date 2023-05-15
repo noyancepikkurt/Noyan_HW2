@@ -18,6 +18,7 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
     @IBOutlet private var authorDetail: UILabel!
     @IBOutlet private var seeMoreButton: UIButton!
     @IBOutlet private var likeImage: UIBarButtonItem!
+    var selectedNew: News?
     private var coreDataNew: NewsItems?
     private var isFavorite: Bool = false {
         didSet {
@@ -30,7 +31,6 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
             }
         }
     }
-    var selectedNew: News?
     
     override func viewWillAppear(_ animated: Bool) {
         fetchNews()

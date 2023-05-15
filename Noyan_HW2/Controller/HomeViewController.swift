@@ -11,6 +11,7 @@ import CoreLocation
 
 final class HomeViewController: UIViewController, LoadingShowable, CLLocationManagerDelegate {
     @IBOutlet private var collectionView: UICollectionView!
+    @IBOutlet var sideMenuBarButton: UIBarButtonItem!
     @IBOutlet private var filterBarButton: UIBarButtonItem!
     @IBOutlet private var searchBar: UISearchBar!
     @IBOutlet private var containerView: UIView!
@@ -20,7 +21,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     @IBOutlet private var eurLabel: UILabel!
     @IBOutlet private var weatherIcon: UIImageView!
     private var news = [News]()
-    private var weathers = [Weather]()
+    private let weathers = [Weather]()
     private var selectedNew: News?
     private var isSearching: Bool = false
     private var searchedItems = [News]() {
@@ -34,10 +35,10 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     private let categories = NetworkConstants.allCases.map { $0 }
     private let notFoundImageView = UIImageView()
     private var containerViewOpen: Bool = true
-    let locationManager = CLLocationManager()
+    private let locationManager = CLLocationManager()
     private var lat: Double = 0
     private var lon: Double = 0
-    private var refreshControl = UIRefreshControl()
+    private let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +47,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
         self.containerView.isHidden = true
         containerViewOpen = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        tabBarController?.delegate = self
         collectionView?.setupCollectionView(self.collectionView)
         collectionView?.register(cellType: HomeCollectionViewCell.self)
         setupNotFoundImageView()
@@ -64,6 +66,8 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
         let containerViewFrame = CGRect(x: 0, y: 44, width: 240, height: 808)
         containerView.isHidden = false
         if !containerViewOpen {
+            let scaledImage = UIImage(named: "menu")?.scalePreservingAspectRatio(targetSize: CGSize(width: 25, height: 25))
+            sideMenuBarButton.image = scaledImage
             containerViewOpen = true
             containerView.frame = CGRect(x: 0, y: 44, width: 0, height: 808)
             UIView.animate(withDuration: 0.1) {
@@ -74,6 +78,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
                 self.containerView.frame = containerViewFrame
             }
         } else {
+            sideMenuBarButton.image = UIImage(systemName: "line.3.horizontal")
             containerViewOpen = false
             containerView.isHidden = true
             UIView.animate(withDuration: 0.1) {
@@ -324,6 +329,13 @@ extension HomeViewController: UISearchBarDelegate {
             searchedItems = news
             notFoundImageView.isHidden = true
         }
+    }
+}
+
+extension HomeViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        containerView.isHidden = true
+        containerViewOpen = false
     }
 }
 
