@@ -12,7 +12,7 @@ import CoreLocation
 @available(iOS 13.0, *)
 final class HomeViewController: UIViewController, LoadingShowable, CLLocationManagerDelegate {
     @IBOutlet private var collectionView: UICollectionView!
-    @IBOutlet var sideMenuBarButton: UIBarButtonItem!
+    @IBOutlet private var sideMenuBarButton: UIBarButtonItem!
     @IBOutlet private var filterBarButton: UIBarButtonItem!
     @IBOutlet private var searchBar: UISearchBar!
     @IBOutlet private var containerView: UIView!
@@ -95,14 +95,18 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     
     @IBAction private func filterButtonClicked(_ sender: Any) {
         let vc = UIViewController()
-        vc.preferredContentSize = CGSize(width: screenWidth, height: screenHeight)
-        let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height:screenHeight))
+        let pickerView = UIPickerView(frame: CGRect.zero)
         pickerView.dataSource = self
         pickerView.delegate = self
         pickerView.selectRow(selectedRow, inComponent: 0, animated: false)
         vc.view.addSubview(pickerView)
-        pickerView.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor).isActive = true
-        pickerView.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor).isActive = true
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pickerView.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
+            pickerView.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor),
+            pickerView.widthAnchor.constraint(equalTo: vc.view.widthAnchor, multiplier: 0.9),
+            pickerView.heightAnchor.constraint(equalToConstant: 200)
+        ])
         let alert = UIAlertController(title: "Select Category ", message: "Please select the category you want to filter", preferredStyle: .actionSheet)
         alert.setValue(vc, forKey: "contentViewController")
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in
@@ -114,6 +118,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
         }))
         self.present(alert, animated: true, completion: nil)
     }
+    
     
     func locationManagerConfig() {
         locationManager.delegate = self
@@ -154,6 +159,10 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
                     self.navigationItem.title = type.rawValue.capitalized
                     self.hideLoading()
                     self.collectionView?.reloadData()
+                    if self.collectionView.numberOfItems(inSection: 0) > 0 {
+                        let indexPath = IndexPath(item: 0, section: 0)
+                        self.collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
+                    }
                 }
             case .failure(_):
                 UIAlertController.alertMessage(title: "The app is in offline mode", message: "You can only read the news articles in your favorites", vc: self)
