@@ -12,10 +12,13 @@ import SDWebImage
 final class HomeCollectionViewCell: UICollectionViewCell {
     @IBOutlet private var homeImageView: UIImageView!
     @IBOutlet private var homeLabel: UILabel!
+    @IBOutlet private var favoriteImageView: UIImageView!
     @IBOutlet private var copyrightLabel: UILabel!
+    private var favoriteNews = [NewsItems]()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        favoriteImageView.image = nil
     }
     
     override func layoutSubviews() {
@@ -23,6 +26,7 @@ final class HomeCollectionViewCell: UICollectionViewCell {
         setCornerRadius()
     }
     
+    @available(iOS 13.0, *)
     func setup(model: News) {
         preparePosterImage(with: model.multimedia?[0].url)
         if model.title == "" || model.title == nil {
@@ -34,6 +38,18 @@ final class HomeCollectionViewCell: UICollectionViewCell {
             copyrightLabel.text = "Author didn't found"
         } else {
             copyrightLabel.text = model.multimedia?[0].copyright
+        }
+        DataPersistenceManager.shared.fetchNew { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let favoriteNews):
+                    if let index = favoriteNews.firstIndex(where: { $0.title == model.title }) {
+                        self.favoriteImageView.image = UIImage(systemName: "star.fill")
+                    }
+                case .failure(_):
+                    break
+                }
+            }
         }
     }
     

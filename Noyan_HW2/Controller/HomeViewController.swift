@@ -41,6 +41,11 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     private var lon: Double = 0
     private let refreshControl = UIRefreshControl()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.collectionView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
