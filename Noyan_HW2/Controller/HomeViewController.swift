@@ -18,6 +18,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     @IBOutlet private var weatherLabel: UILabel!
     @IBOutlet private var usdLabel: UILabel!
     @IBOutlet private var stackView: UIStackView!
+    @IBOutlet private var weatherIcon: UIImageView!
     private var news = [News]()
     private var weathers = [Weather]()
     private var selectedNew: News?
@@ -47,7 +48,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
         collectionView?.register(cellType: HomeCollectionViewCell.self)
         setupNotFoundImageView()
         self.hideKeyboardWhenTappedAround()
-        fetchDatas(type: .home)
+        fetchNews(type: .home)
         locationManagerConfig()
     }
     
@@ -60,18 +61,16 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
         containerView.isHidden = false
         if !containerViewOpen {
             containerViewOpen = true
-            tabBarController?.tabBar.isHidden = true
             containerView.frame = CGRect(x: 0, y: 44, width: 0, height: 808)
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.3) {
                 self.containerView.frame = CGRect(x: 0, y: 44, width: 240, height: 808)
                 self.stackView.isHidden = false
             }
         } else {
             containerViewOpen = false
             containerView.isHidden = true
-            tabBarController?.tabBar.isHidden = false
             containerView.frame = CGRect(x: 0, y: 44, width: 0, height: 808)
-            UIView.animate(withDuration: 1) {
+            UIView.animate(withDuration: 0.3) {
                 self.containerView.frame = CGRect(x: 0, y: 44, width: 240, height: 808)
             }
         }
@@ -123,10 +122,10 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     }
     
     private func getFilterCategories(categoriesName: NetworkConstantsNews) {
-        fetchDatas(type: categoriesName)
+        fetchNews(type: categoriesName)
     }
     
-    private func fetchDatas(type: NetworkConstantsNews) {
+    private func fetchNews(type: NetworkConstantsNews) {
         NetworkService.shared.fetchNews(pathUrl: type.path) { result in
             switch result {
             case .success(let success):
@@ -153,8 +152,37 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
             switch result {
             case .success(let success):
                 if let weather = success {
-                    guard let weatherTemp = weather.temp else { return }
-                    self.weatherLabel.text = String(Int(weatherTemp-272.15))
+                    guard let weatherTemp = weather.main?.temp else { return }
+                    self.weatherLabel.text = "\(Int(weatherTemp-272.15))°"
+                    guard let cityName = weather.name else { return }
+                    self.cityLabel.text = cityName
+                    guard let weatherId = weather.weather?[0].id else { return }
+                    switch weatherId {
+                    case 200...232:
+                        self.weatherIcon.image = UIImage(named: "11d")
+                    case 300...321:
+                        self.weatherIcon.image = UIImage(named: "09d")
+                    case 500...504:
+                        self.weatherIcon.image = UIImage(named: "10d")
+                    case 511:
+                        self.weatherIcon.image = UIImage(named: "13d")
+                    case 520...531:
+                        self.weatherIcon.image = UIImage(named: "09d")
+                    case 600...622:
+                        self.weatherIcon.image = UIImage(named: "13d")
+                    case 701...781:
+                        self.weatherIcon.image = UIImage(named: "50d")
+                    case 800:
+                        self.weatherIcon.image = UIImage(named: "01d")
+                    case 801:
+                        self.weatherIcon.image = UIImage(named: "02d")
+                    case 802:
+                        self.weatherIcon.image = UIImage(named: "03d")
+                    case 803...804:
+                        self.weatherIcon.image = UIImage(named: "04d")
+                    default:
+                        self.weatherIcon.image = UIImage(named: "01d")
+                    }
                 }
             case .failure(_):
                 break

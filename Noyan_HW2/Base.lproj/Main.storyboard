@@ -183,6 +183,7 @@
                         <outlet property="searchBar" destination="ijF-aR-kZ4" id="THV-d1-fng"/>
                         <outlet property="stackView" destination="CPr-kj-mWI" id="Mna-he-ldT"/>
                         <outlet property="usdLabel" destination="35e-Lb-YmW" id="Mlo-jZ-Rxk"/>
+                        <outlet property="weatherIcon" destination="1Gq-ym-f4k" id="WKP-eE-IOf"/>
                         <outlet property="weatherLabel" destination="qTI-fe-TVN" id="6xF-C2-tvf"/>
                         <segue destination="a82-vA-4Dc" kind="show" identifier="toDetailsVC" id="wXj-15-nnZ"/>
                     </connections>
@@ -452,7 +453,7 @@
     </scenes>
     <resources>
         <image name="gearshape" catalog="system" width="128" height="123"/>
-        <image name="goArrow" width="512" height="512"/>
+        <image name="goArrow" width="170.66667175292969" height="170.66667175292969"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
         <image name="line.3.horizontal.decrease.circle" catalog="system" width="128" height="123"/>
