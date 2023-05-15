@@ -7,11 +7,13 @@
 
 import Foundation
 
+@available(iOS 13.0, *)
 protocol LoadingShowable where Self:HomeViewController {
     func showLoading()
     func hideLoading()
 }
 
+@available(iOS 13.0, *)
 extension LoadingShowable {
     func showLoading() {
         LoadingView.shared.startLoading()

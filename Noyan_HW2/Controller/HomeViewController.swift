@@ -9,6 +9,7 @@ import UIKit
 import NewsAPI
 import CoreLocation
 
+@available(iOS 13.0, *)
 final class HomeViewController: UIViewController, LoadingShowable, CLLocationManagerDelegate {
     @IBOutlet private var collectionView: UICollectionView!
     @IBOutlet var sideMenuBarButton: UIBarButtonItem!
@@ -247,6 +248,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     }
 }
 
+@available(iOS 13.0, *)
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isSearching {
@@ -283,12 +285,14 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 }
 
+@available(iOS 13.0, *)
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (collectionView.frame.width - 20) / 2, height: 300)
     }
 }
 
+@available(iOS 13.0, *)
 extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 30))
@@ -310,6 +314,7 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 }
 
+@available(iOS 13.0, *)
 extension HomeViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         isSearching = true
@@ -332,10 +337,12 @@ extension HomeViewController: UISearchBarDelegate {
     }
 }
 
+@available(iOS 13.0, *)
 extension HomeViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         containerView.isHidden = true
         containerViewOpen = false
+        sideMenuBarButton.image = UIImage(systemName: "line.3.horizontal")
     }
 }
 

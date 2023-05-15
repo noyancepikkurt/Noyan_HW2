@@ -11,6 +11,7 @@ import SDWebImage
 import SafariServices
 import CoreData
 
+@available(iOS 13.0, *)
 final class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
     @IBOutlet private var detailLabel: UILabel!
     @IBOutlet private var detailImageView: UIImageView!
