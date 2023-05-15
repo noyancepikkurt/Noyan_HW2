@@ -95,7 +95,7 @@
 		5D49C8322A0C267600869B97 /* Noyan_HW2 */ = {
 			isa = PBXGroup;
 			children = (
-				5D7FA2E02A0FED4E007816B7 /* Helper */,
+				5D7FA2E02A0FED4E007816B7 /* HelperCoreData */,
 				5D6442D62A0D739B00B11C56 /* Utility */,
 				5D49C8482A0C26FA00869B97 /* App */,
 				5D6442D32A0D4FA400B11C56 /* Views */,
@@ -151,12 +151,12 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
-		5D7FA2E02A0FED4E007816B7 /* Helper */ = {
+		5D7FA2E02A0FED4E007816B7 /* HelperCoreData */ = {
 			isa = PBXGroup;
 			children = (
 				5D7FA2DC2A0FE46F007816B7 /* DataPersistenceManager.swift */,
 			);
-			path = Helper;
+			path = HelperCoreData;
 			sourceTree = "<group>";
 		};
 		5DB23DD32A0C28C800789691 /* Frameworks */ = {

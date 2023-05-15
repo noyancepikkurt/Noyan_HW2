@@ -17,7 +17,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     @IBOutlet private var cityLabel: UILabel!
     @IBOutlet private var weatherLabel: UILabel!
     @IBOutlet private var usdLabel: UILabel!
-    @IBOutlet private var stackView: UIStackView!
+    @IBOutlet private var eurLabel: UILabel!
     @IBOutlet private var weatherIcon: UIImageView!
     private var news = [News]()
     private var weathers = [Weather]()
@@ -31,16 +31,18 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     private let screenWidth = UIScreen.main.bounds.width - 10
     private let screenHeight = UIScreen.main.bounds.height / 4
     private var selectedRow = 7
-    private let categories = NetworkConstantsNews.allCases.map { $0 }
+    private let categories = NetworkConstants.allCases.map { $0 }
     private let notFoundImageView = UIImageView()
     private var containerViewOpen: Bool = true
     let locationManager = CLLocationManager()
     private var lat: Double = 0
     private var lon: Double = 0
+    private var refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.stackView.isHidden = true
+        self.refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        self.collectionView.addSubview(refreshControl)
         self.containerView.isHidden = true
         containerViewOpen = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -49,6 +51,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
         setupNotFoundImageView()
         self.hideKeyboardWhenTappedAround()
         fetchNews(type: .home)
+        fetchExchange()
         locationManagerConfig()
     }
     
@@ -58,20 +61,23 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     }
     
     @IBAction private func sideMenuButtonClicked(_ sender: Any) {
+        let containerViewFrame = CGRect(x: 0, y: 44, width: 240, height: 808)
         containerView.isHidden = false
         if !containerViewOpen {
             containerViewOpen = true
             containerView.frame = CGRect(x: 0, y: 44, width: 0, height: 808)
-            UIView.animate(withDuration: 0.3) {
-                self.containerView.frame = CGRect(x: 0, y: 44, width: 240, height: 808)
-                self.stackView.isHidden = false
+            UIView.animate(withDuration: 0.1) {
+                self.tabBarController!.view.addSubview(self.containerView)
+                self.containerView.translatesAutoresizingMaskIntoConstraints = false
+                self.containerView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+                self.containerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+                self.containerView.frame = containerViewFrame
             }
         } else {
             containerViewOpen = false
             containerView.isHidden = true
-            containerView.frame = CGRect(x: 0, y: 44, width: 0, height: 808)
-            UIView.animate(withDuration: 0.3) {
-                self.containerView.frame = CGRect(x: 0, y: 44, width: 240, height: 808)
+            UIView.animate(withDuration: 0.1) {
+                self.containerView.frame = containerViewFrame
             }
         }
     }
@@ -121,12 +127,12 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
         print("Error getting location: \(error.localizedDescription)")
     }
     
-    private func getFilterCategories(categoriesName: NetworkConstantsNews) {
+    private func getFilterCategories(categoriesName: NetworkConstants) {
         fetchNews(type: categoriesName)
     }
     
-    private func fetchNews(type: NetworkConstantsNews) {
-        NetworkService.shared.fetchNews(pathUrl: type.path) { result in
+    private func fetchNews(type: NetworkConstants) {
+        NetworkService.shared.fetchNews(pathUrl: type.pathUrlNews) { result in
             switch result {
             case .success(let success):
                 if let news = success {
@@ -147,7 +153,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     }
     
     private func fetchWeather() {
-        let pathUrl = "\(NetworkAPIConstantsWeather.baseURL.rawValue)lat=\(self.lat)&lon=\(self.lon)&appid=\(NetworkAPIConstantsWeather.apiKEY.rawValue)"
+        let pathUrl = "\(NetworkAPIConstantsWeather.baseURL.rawValue)lat=\(self.lat)&lon=\(self.lon)&appid=\(NetworkAPIConstantsWeather.APIKEYWeather.rawValue)"
         NetworkService.shared.fetchWeather(pathUrl: pathUrl) { result in
             switch result {
             case .success(let success):
@@ -190,6 +196,37 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
         }
     }
     
+    private func fetchExchange() {
+        let pathUrlUsd = "https://api.exchangerate.host/convert?from=USD&to=TRY"
+        let pathUrlEuro = "https://api.exchangerate.host/convert?from=EUR&to=TRY"
+        NetworkService.shared.fetchExchange(pathUrl: pathUrlUsd) { result in
+            switch result {
+            case .success(let success):
+                guard let usd = success?.result else { return }
+                self.usdLabel.text = String(format: "%.3f", usd)
+            case .failure(_):
+                break
+            }
+        }
+        NetworkService.shared.fetchExchange(pathUrl: pathUrlEuro) { result in
+            switch result {
+            case .success(let success):
+                guard let eur = success?.result else { return }
+                self.eurLabel.text = String(format: "%.3f", eur)
+            case .failure(_):
+                break
+            }
+        }
+    }
+    
+    @objc private func refresh(send: UIRefreshControl) {
+        DispatchQueue.main.async {
+            self.fetchNews(type: self.categories[self.selectedRow])
+            self.collectionView.reloadData()
+            self.refreshControl.endRefreshing()
+        }
+    }
+    
     private func setupNotFoundImageView() {
         view.addSubview(notFoundImageView)
         notFoundImageView.isHidden = true
@@ -227,6 +264,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.containerViewOpen = false
+        self.containerView.isHidden = true
         self.selectedNew = self.news[indexPath.item]
         performSegue(withIdentifier: "toDetailsVC", sender: nil)
     }

@@ -54,7 +54,7 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
                             switch result {
                             case .success(_):
                                 self.isFavorite = false
-                                self.showToast(message: "Removed to your favorites", font: .systemFont(ofSize: 12))
+                                self.showToast(message: "Removed from favorites", font: .systemFont(ofSize: 12))
                             case .failure(_):
                                 break
                             }
@@ -111,20 +111,20 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
         if selectedNew?.url != ""  && selectedNew?.url != nil {
             openURL()
         } else {
-            UIAlertController.alertMessage(title: "Error", message: "There is no website to go", vc: self)
+            UIAlertController.alertMessage(title: "Error", message: "*There is no website to go*", vc: self)
         }
     }
     
     private func configure() {
         if selectedNew?.abstract == "" || selectedNew?.abstract == nil {
-            detailLabel.text = "Description didn't found"
+            detailLabel.text = "*Description didn't found*"
         } else {
             detailLabel.text = selectedNew?.abstract
         }
         guard let url = selectedNew?.multimedia?[0].url else { return }
         detailImageView.sd_setImage(with: URL(string: url))
         if selectedNew?.title == "" || selectedNew?.title == nil {
-            titleLabel.text = "Title didn't found"
+            titleLabel.text = "*Title didn't found*"
         } else {
             titleLabel.text = selectedNew?.title
         }
