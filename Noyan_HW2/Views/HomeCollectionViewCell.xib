@@ -44,7 +44,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Wgo-EG-eXn" firstAttribute="top" secondItem="d0Q-Kz-MJW" secondAttribute="top" id="8El-9n-H0B"/>
                             <constraint firstItem="z6R-8q-ULa" firstAttribute="top" secondItem="cV6-SA-Kb5" secondAttribute="bottom" id="9mU-OF-op9"/>
@@ -93,9 +93,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

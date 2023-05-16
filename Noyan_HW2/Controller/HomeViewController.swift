@@ -44,6 +44,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.collectionView.reloadData()
+        print("test")
     }
     
     override func viewDidLoad() {
@@ -88,6 +89,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
             containerViewOpen = false
             containerView.isHidden = true
             UIView.animate(withDuration: 0.05) {
+                print("test2")
                 self.containerView.frame = containerViewFrame
             }
         }
@@ -168,6 +170,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
                 UIAlertController.alertMessage(title: "The app is in offline mode", message: "You can only read the news articles in your favorites", vc: self)
                 guard let tabBarController = self.tabBarController else { return }
                 tabBarController.selectedIndex = 1
+                print("test offline mode")
             }
         }
     }
@@ -244,6 +247,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
             self.fetchNews(type: self.categories[self.selectedRow])
             self.collectionView.reloadData()
             self.refreshControl.endRefreshing()
+            print("testtt")
         }
     }
     

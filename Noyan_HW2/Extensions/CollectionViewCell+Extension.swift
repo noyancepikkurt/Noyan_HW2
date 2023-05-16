@@ -15,4 +15,6 @@ extension UICollectionViewCell {
     static var nib: UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
+    
 }
+

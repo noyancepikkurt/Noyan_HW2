@@ -76,7 +76,7 @@ final class HomeCollectionViewCell: UICollectionViewCell {
     
     private func setCornerRadius() {
         homeImageView.clipsToBounds = true
-        homeImageView.layer.cornerRadius = 12
+        homeImageView.layer.cornerRadius = 8
         homeImageView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
     }
 }

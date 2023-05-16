@@ -36,6 +36,7 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
     
     override func viewWillAppear(_ animated: Bool) {
         fetchNews()
+        detailImageView.addShadow()
     }
     
     override func viewDidLoad() {

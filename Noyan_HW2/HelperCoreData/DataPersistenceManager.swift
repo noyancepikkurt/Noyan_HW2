@@ -1,8 +1,8 @@
 //
 //  DataPersistenceManager.swift
-//  BestMovieApp
+//  Noyan_HW2
 //
-//  Created by Ekrem Alkan on 25.11.2022.
+//  Created by Noyan Çepikkurt on 11.05.2023.
 //
 
 import UIKit
@@ -39,8 +39,8 @@ final class DataPersistenceManager {
         
         do {
             try context.save()
-            let movies = try context.fetch(request)
-            completion(.success(movies))
+            let news = try context.fetch(request)
+            completion(.success(news))
         } catch {
             completion(.failure(error))
         }

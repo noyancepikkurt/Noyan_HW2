@@ -25,7 +25,7 @@
 		5D7FA2CE2A0F9259007816B7 /* Noyan_HW2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5D7FA2CC2A0F9259007816B7 /* Noyan_HW2.xcdatamodeld */; };
 		5D7FA2DD2A0FE46F007816B7 /* DataPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7FA2DC2A0FE46F007816B7 /* DataPersistenceManager.swift */; };
 		5D7FA2DF2A0FE9ED007816B7 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7FA2DE2A0FE9ED007816B7 /* UIViewController+Extension.swift */; };
-		5DB23DCF2A0C280A00789691 /* ShadowAndCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB23DCE2A0C280A00789691 /* ShadowAndCornerRadius.swift */; };
+		5DB23DCF2A0C280A00789691 /* ShadowRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB23DCE2A0C280A00789691 /* ShadowRadius.swift */; };
 		5DB23DD12A0C285500789691 /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB23DD02A0C285500789691 /* AlertExtension.swift */; };
 		5DB23DD52A0C28C800789691 /* NewsAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 5DB23DD42A0C28C800789691 /* NewsAPI */; };
 		5DB8A3482A0CE68B0097DA51 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB8A3462A0CE68B0097DA51 /* HomeCollectionViewCell.swift */; };
@@ -55,7 +55,7 @@
 		5D7FA2CD2A0F9259007816B7 /* Noyan_HW2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Noyan_HW2.xcdatamodel; sourceTree = "<group>"; };
 		5D7FA2DC2A0FE46F007816B7 /* DataPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPersistenceManager.swift; sourceTree = "<group>"; };
 		5D7FA2DE2A0FE9ED007816B7 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
-		5DB23DCE2A0C280A00789691 /* ShadowAndCornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowAndCornerRadius.swift; sourceTree = "<group>"; };
+		5DB23DCE2A0C280A00789691 /* ShadowRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowRadius.swift; sourceTree = "<group>"; };
 		5DB23DD02A0C285500789691 /* AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
 		5DB23DD22A0C288500789691 /* NewsAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = NewsAPI; path = ../NewsAPI; sourceTree = "<group>"; };
 		5DB8A3462A0CE68B0097DA51 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 				5D49C84B2A0C271300869B97 /* CollectionViewCell+Extension.swift */,
 				5D49C84D2A0C277B00869B97 /* UIView+Extension.swift */,
 				5D49C84F2A0C27C000869B97 /* HideKeyboardExtension.swift */,
-				5DB23DCE2A0C280A00789691 /* ShadowAndCornerRadius.swift */,
+				5DB23DCE2A0C280A00789691 /* ShadowRadius.swift */,
 				5DB23DD02A0C285500789691 /* AlertExtension.swift */,
 				5D7FA2DE2A0FE9ED007816B7 /* UIViewController+Extension.swift */,
 				5D399CDF2A125C2F00B0D64D /* UIImage+Extension.swift */,
@@ -262,7 +262,7 @@
 				5D7FA2DF2A0FE9ED007816B7 /* UIViewController+Extension.swift in Sources */,
 				5D7FA2CE2A0F9259007816B7 /* Noyan_HW2.xcdatamodeld in Sources */,
 				5DF4D3452A0D0B8B00A05414 /* DetailViewController.swift in Sources */,
-				5DB23DCF2A0C280A00789691 /* ShadowAndCornerRadius.swift in Sources */,
+				5DB23DCF2A0C280A00789691 /* ShadowRadius.swift in Sources */,
 				5D49C84E2A0C277B00869B97 /* UIView+Extension.swift in Sources */,
 				5D72EE062A0EC4FE00EFAA18 /* FavoriteNewsViewController.swift in Sources */,
 				5D49C84C2A0C271300869B97 /* CollectionViewCell+Extension.swift in Sources */,
