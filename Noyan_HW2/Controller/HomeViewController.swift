@@ -76,7 +76,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
             sideMenuBarButton.image = scaledImage
             containerViewOpen = true
             containerView.frame = CGRect(x: 0, y: 44, width: 0, height: 808)
-            UIView.animate(withDuration: 0.1) {
+            UIView.animate(withDuration: 0.05) {
                 self.tabBarController!.view.addSubview(self.containerView)
                 self.containerView.translatesAutoresizingMaskIntoConstraints = false
                 self.containerView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
@@ -87,7 +87,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
             sideMenuBarButton.image = UIImage(systemName: "line.3.horizontal")
             containerViewOpen = false
             containerView.isHidden = true
-            UIView.animate(withDuration: 0.1) {
+            UIView.animate(withDuration: 0.05) {
                 self.containerView.frame = containerViewFrame
             }
         }
@@ -104,7 +104,7 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
         NSLayoutConstraint.activate([
             pickerView.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
             pickerView.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor),
-            pickerView.widthAnchor.constraint(equalTo: vc.view.widthAnchor, multiplier: 0.9),
+            pickerView.widthAnchor.constraint(equalTo: vc.view.layoutMarginsGuide.widthAnchor, multiplier: 0.9),
             pickerView.heightAnchor.constraint(equalToConstant: 200)
         ])
         let alert = UIAlertController(title: "Select Category ", message: "Please select the category you want to filter", preferredStyle: .actionSheet)

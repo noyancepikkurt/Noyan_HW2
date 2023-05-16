@@ -31,7 +31,7 @@ final class FavoriteNewsViewController: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        self.favoriteCollectionView.collectionViewLayout.invalidateLayout()
+        self.favoriteCollectionView?.collectionViewLayout.invalidateLayout()
     }
     
     private func fetchNews() {
