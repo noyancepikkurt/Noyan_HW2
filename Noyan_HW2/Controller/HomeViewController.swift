@@ -372,7 +372,8 @@ extension HomeViewController: UISearchBarDelegate {
     
     func filterArray(searchText:String) {
         if searchText.trimmingCharacters(in: .whitespacesAndNewlines) != "" && isSearching == true {
-            searchedItems = news.filter { $0.title!.starts(with: searchText)}
+            let lowercaseSearchText = searchText.lowercased()
+            searchedItems = news.filter { $0.title!.lowercased().starts(with: lowercaseSearchText)}
             if searchedItems.isEmpty{
                 notFoundImageView.isHidden = false
                 noResultLabel.isHidden = false
