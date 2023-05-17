@@ -21,6 +21,8 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     @IBOutlet private var usdLabel: UILabel!
     @IBOutlet private var eurLabel: UILabel!
     @IBOutlet private var weatherIcon: UIImageView!
+    @IBOutlet private var euroImage: UIImageView!
+    @IBOutlet private var usdImage: UIImageView!
     private lazy var noResultLabel: UILabel = {
         let label = UILabel()
         label.text = "No result found"
@@ -228,19 +230,36 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     private func fetchExchange() {
         let pathUrlUsd = "https://api.exchangerate.host/convert?from=USD&to=TRY"
         let pathUrlEuro = "https://api.exchangerate.host/convert?from=EUR&to=TRY"
+        let userDefaults = UserDefaults.standard
+        let lastDollarPrice = userDefaults.double(forKey: "lastDollarPrice")
+        let lastEuroPrice = userDefaults.double(forKey: "lastEuroPrice")
+        
         NetworkService.shared.fetchExchange(pathUrl: pathUrlUsd) { result in
             switch result {
             case .success(let success):
                 guard let usd = success?.result else { return }
+                if usd > lastDollarPrice {
+                    self.usdImage.image = UIImage(named: "increase")
+                } else if usd < lastDollarPrice {
+                    self.usdImage.image = UIImage(named: "decrease")
+                }
+                userDefaults.set(usd, forKey: "lastDollarPrice")
                 self.usdLabel.text = String(format: "%.3f", usd)
             case .failure(_):
                 break
             }
         }
+        
         NetworkService.shared.fetchExchange(pathUrl: pathUrlEuro) { result in
             switch result {
             case .success(let success):
                 guard let eur = success?.result else { return }
+                if eur > lastEuroPrice {
+                    self.euroImage.image = UIImage(named: "increase")
+                } else if eur < lastEuroPrice {
+                    self.euroImage.image = UIImage(named: "decrease")
+                }
+                userDefaults.set(eur, forKey: "lastEuroPrice")
                 self.eurLabel.text = String(format: "%.3f", eur)
             case .failure(_):
                 break
