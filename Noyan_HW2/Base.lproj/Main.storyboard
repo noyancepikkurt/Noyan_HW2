@@ -57,8 +57,8 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="CPr-kj-mWI">
                                         <rect key="frame" x="14" y="23" width="212" height="183"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="54" translatesAutoresizingMaskIntoConstraints="NO" id="HkB-e0-4Wf">
-                                                <rect key="frame" x="0.0" y="0.0" width="211.33333333333334" height="20"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="48" translatesAutoresizingMaskIntoConstraints="NO" id="HkB-e0-4Wf">
+                                                <rect key="frame" x="0.0" y="0.0" width="211.66666666666666" height="20"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Zqm-Qi-7KN">
                                                         <rect key="frame" x="0.0" y="0.0" width="78" height="20"/>
@@ -80,16 +80,16 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="wIi-hb-ivh">
-                                                        <rect key="frame" x="132" y="0.0" width="79.333333333333314" height="20"/>
+                                                        <rect key="frame" x="126" y="0.0" width="85.666666666666686" height="20"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1I-bU-9fd">
-                                                                <rect key="frame" x="0.0" y="0.0" width="56.666666666666664" height="20"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="63" height="20"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gearshape" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="o0F-Z3-ozY">
-                                                                <rect key="frame" x="58.66666666666665" y="0.33333333333333215" width="20.666666666666664" height="19.666666666666668"/>
+                                                                <rect key="frame" x="65" y="0.33333333333333215" width="20.666666666666671" height="19.666666666666668"/>
                                                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </imageView>
                                                         </subviews>

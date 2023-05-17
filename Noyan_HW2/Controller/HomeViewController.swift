@@ -105,6 +105,11 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     }
     
     @IBAction private func filterButtonClicked(_ sender: Any) {
+        if !containerView.isHidden {
+            self.containerViewOpen = false
+            self.containerView.isHidden = true
+            self.sideMenuBarButton.image = UIImage(systemName: "line.3.horizontal")
+        }
         let vc = UIViewController()
         let pickerView = UIPickerView(frame: CGRect.zero)
         pickerView.dataSource = self
@@ -320,8 +325,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.containerViewOpen = false
-        self.containerView.isHidden = true
+        if !containerView.isHidden {
+            self.containerViewOpen = false
+            self.containerView.isHidden = true
+            self.sideMenuBarButton.image = UIImage(systemName: "line.3.horizontal")
+        }
         self.selectedNew = self.news[indexPath.item]
         performSegue(withIdentifier: "toDetailsVC", sender: nil)
     }
