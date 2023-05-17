@@ -21,20 +21,29 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     @IBOutlet private var usdLabel: UILabel!
     @IBOutlet private var eurLabel: UILabel!
     @IBOutlet private var weatherIcon: UIImageView!
-    private var news = [News]()
-    private let weathers = [Weather]()
-    private var selectedNew: News?
-    private var isSearching: Bool = false
+    private lazy var noResultLabel: UILabel = {
+        let label = UILabel()
+        label.text = "No result found"
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
+    }()
+    private lazy var notFoundImageView: UIImageView = {
+        let image = UIImageView()
+        return image
+    }()
     private var searchedItems = [News]() {
         didSet {
             self.collectionView.reloadData()
         }
     }
+    private var news = [News]()
+    private let weathers = [Weather]()
+    private var selectedNew: News?
+    private var isSearching: Bool = false
     private let screenWidth = UIScreen.main.bounds.width - 10
     private let screenHeight = UIScreen.main.bounds.height / 4
     private var selectedRow = 7
     private let categories = NetworkConstants.allCases.map { $0 }
-    private let notFoundImageView = UIImageView()
     private var containerViewOpen: Bool = true
     private let locationManager = CLLocationManager()
     private var lat: Double = 0
@@ -44,7 +53,6 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.collectionView.reloadData()
-        print("test")
     }
     
     override func viewDidLoad() {
@@ -89,7 +97,6 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
             containerViewOpen = false
             containerView.isHidden = true
             UIView.animate(withDuration: 0.05) {
-                print("test2")
                 self.containerView.frame = containerViewFrame
             }
         }
@@ -170,7 +177,6 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
                 UIAlertController.alertMessage(title: "The app is in offline mode", message: "You can only read the news articles in your favorites", vc: self)
                 guard let tabBarController = self.tabBarController else { return }
                 tabBarController.selectedIndex = 1
-                print("test offline mode")
             }
         }
     }
@@ -247,21 +253,27 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
             self.fetchNews(type: self.categories[self.selectedRow])
             self.collectionView.reloadData()
             self.refreshControl.endRefreshing()
-            print("testtt")
         }
     }
     
     private func setupNotFoundImageView() {
         view.addSubview(notFoundImageView)
         notFoundImageView.isHidden = true
+        noResultLabel.isHidden = true
         notFoundImageView.image = UIImage(named: "notFoundImage")
         notFoundImageView.translatesAutoresizingMaskIntoConstraints = false
         notFoundImageView.contentMode = .scaleAspectFit
+        notFoundImageView.contentMode = .top
         NSLayoutConstraint.activate([
             notFoundImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            notFoundImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            notFoundImageView.widthAnchor.constraint(equalToConstant: 350),
-            notFoundImageView.heightAnchor.constraint(equalToConstant: 600)
+            notFoundImageView.topAnchor.constraint(equalTo: self.searchBar.bottomAnchor, constant: 20)
+        ])
+        
+        view.addSubview(noResultLabel)
+        noResultLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            noResultLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noResultLabel.topAnchor.constraint(equalTo: notFoundImageView.bottomAnchor, constant: 20)
         ])
     }
 }
@@ -344,13 +356,16 @@ extension HomeViewController: UISearchBarDelegate {
             searchedItems = news.filter { $0.title!.starts(with: searchText)}
             if searchedItems.isEmpty{
                 notFoundImageView.isHidden = false
+                noResultLabel.isHidden = false
             } else {
                 notFoundImageView.isHidden = true
+                noResultLabel.isHidden = true
             }
         } else {
             isSearching = false
             searchedItems = news
             notFoundImageView.isHidden = true
+            noResultLabel.isHidden = true
         }
     }
 }

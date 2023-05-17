@@ -14,6 +14,7 @@ extension UIAlertController {
         alert.addAction(alertAction)
         vc.present(alert, animated: true)
     }
+    
     static func alertActionMessage(title: String, message: String, vc: UIViewController, completion: @escaping((Bool) -> Void)) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) { _ in
@@ -27,4 +28,3 @@ extension UIAlertController {
         vc.present(alert, animated: true)
     }
 }
-

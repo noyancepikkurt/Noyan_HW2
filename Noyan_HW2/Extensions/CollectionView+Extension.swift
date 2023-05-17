@@ -15,7 +15,6 @@ extension UICollectionView {
     func dequeCell<T: UICollectionViewCell>(cellType: T.Type, indexPath: IndexPath) -> T {
         guard let cell = dequeueReusableCell(withReuseIdentifier: cellType.identifier, for: indexPath) as? T else { fatalError("error")}
         return cell
-        
     }
     
     func setupCollectionView(_ collectionView: UICollectionView) {
