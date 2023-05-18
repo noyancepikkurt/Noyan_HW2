@@ -15,6 +15,20 @@ final class HomeCollectionViewCell: UICollectionViewCell {
     @IBOutlet private var favoriteImageView: UIImageView!
     @IBOutlet private var copyrightLabel: UILabel!
     private var favoriteNews = [NewsItems]()
+    private var indicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.tintColor = .black
+        indicator.hidesWhenStopped = true
+        indicator.startAnimating()
+        indicator.isHidden = true
+        return indicator
+    }()
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        homeImageView.addSubview(indicator)
+        indicator.center = homeImageView.center
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -70,7 +84,10 @@ final class HomeCollectionViewCell: UICollectionViewCell {
     private func preparePosterImage(with urlString: String?) {
         guard let fullPath = urlString else { return }
         if let url = URL(string: fullPath) {
-            homeImageView.sd_setImage(with: url)
+            indicator.isHidden = false
+            homeImageView.sd_setImage(with: url) { _,_,_,_ in
+                self.indicator.stopAnimating()
+            }
         }
     }
     

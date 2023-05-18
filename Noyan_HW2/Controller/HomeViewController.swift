@@ -38,6 +38,11 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
             self.collectionView.reloadData()
         }
     }
+    private var containerViewOpen: Bool = false {
+        didSet {
+            containerView.isHidden = containerViewOpen ? false : true
+        }
+    }
     private var news = [News]()
     private let weathers = [Weather]()
     private var selectedNew: News?
@@ -46,7 +51,6 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     private let screenHeight = UIScreen.main.bounds.height / 4
     private var selectedRow = 7
     private let categories = NetworkConstants.allCases.map { $0 }
-    private var containerViewOpen: Bool = true
     private let locationManager = CLLocationManager()
     private var lat: Double = 0
     private var lon: Double = 0
@@ -61,8 +65,6 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
         super.viewDidLoad()
         self.refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         self.collectionView.addSubview(refreshControl)
-        self.containerView.isHidden = true
-        containerViewOpen = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         tabBarController?.delegate = self
         collectionView?.setupCollectionView(self.collectionView)
@@ -80,36 +82,56 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
     }
     
     @IBAction private func sideMenuButtonClicked(_ sender: Any) {
+        self.containerIsOpened()
+    }
+    
+    private func containerIsOpened() {
         let containerViewFrame = CGRect(x: 0, y: 44, width: 240, height: 808)
-        containerView.isHidden = false
         if !containerViewOpen {
             let scaledImage = UIImage(named: "menu")?.scalePreservingAspectRatio(targetSize: CGSize(width: 25, height: 25))
             sideMenuBarButton.image = scaledImage
             containerViewOpen = true
             containerView.frame = CGRect(x: 0, y: 44, width: 0, height: 808)
-            UIView.animate(withDuration: 0.05) {
-                self.tabBarController!.view.addSubview(self.containerView)
-                self.containerView.translatesAutoresizingMaskIntoConstraints = false
-                self.containerView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
-                self.containerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
-                self.containerView.frame = containerViewFrame
-            }
+            self.animateContainerView(containerViewFrame: containerViewFrame)
         } else {
             sideMenuBarButton.image = UIImage(systemName: "line.3.horizontal")
             containerViewOpen = false
-            containerView.isHidden = true
             UIView.animate(withDuration: 0.05) {
                 self.containerView.frame = containerViewFrame
             }
         }
     }
     
+    private func animateContainerView(containerViewFrame: CGRect) {
+        UIView.animate(withDuration: 0.05) {
+            self.tabBarController?.view.addSubview(self.containerView)
+            self.containerView.translatesAutoresizingMaskIntoConstraints = false
+            self.containerView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+            self.containerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+            self.containerView.frame = containerViewFrame
+        }
+    }
+    
     @IBAction private func filterButtonClicked(_ sender: Any) {
         if !containerView.isHidden {
             self.containerViewOpen = false
-            self.containerView.isHidden = true
             self.sideMenuBarButton.image = UIImage(systemName: "line.3.horizontal")
         }
+        createPickerView { vc, pickerView  in
+            let alert = UIAlertController(title: "Select Category ", message: "Please select the category you want to filter", preferredStyle: .actionSheet)
+            alert.setValue(vc, forKey: "contentViewController")
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in
+            }))
+            alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { [self] (UIAlertAction) in
+                self.selectedRow = pickerView.selectedRow(inComponent: 0)
+                self.getFilterCategories(categoriesName: categories[selectedRow])
+                self.showLoading()
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    private func createPickerView(completion: (UIViewController, UIPickerView) -> Void) {
         let vc = UIViewController()
         let pickerView = UIPickerView(frame: CGRect.zero)
         pickerView.dataSource = self
@@ -123,18 +145,8 @@ final class HomeViewController: UIViewController, LoadingShowable, CLLocationMan
             pickerView.widthAnchor.constraint(equalTo: vc.view.layoutMarginsGuide.widthAnchor, multiplier: 0.9),
             pickerView.heightAnchor.constraint(equalToConstant: 200)
         ])
-        let alert = UIAlertController(title: "Select Category ", message: "Please select the category you want to filter", preferredStyle: .actionSheet)
-        alert.setValue(vc, forKey: "contentViewController")
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in
-        }))
-        alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { [self] (UIAlertAction) in
-            self.selectedRow = pickerView.selectedRow(inComponent: 0)
-            self.getFilterCategories(categoriesName: categories[selectedRow])
-            self.showLoading()
-        }))
-        self.present(alert, animated: true, completion: nil)
+        completion(vc, pickerView)
     }
-    
     
     func locationManagerConfig() {
         locationManager.delegate = self

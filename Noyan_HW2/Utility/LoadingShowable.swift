@@ -8,7 +8,7 @@
 import Foundation
 
 @available(iOS 13.0, *)
-protocol LoadingShowable where Self:HomeViewController {
+protocol LoadingShowable where Self: HomeViewController {
     func showLoading()
     func hideLoading()
 }
