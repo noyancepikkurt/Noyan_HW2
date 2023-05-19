@@ -14,21 +14,8 @@ final class HomeCollectionViewCell: UICollectionViewCell {
     @IBOutlet private var homeLabel: UILabel!
     @IBOutlet private var favoriteImageView: UIImageView!
     @IBOutlet private var copyrightLabel: UILabel!
+    @IBOutlet private var indicator: UIActivityIndicatorView!
     private var favoriteNews = [NewsItems]()
-    private var indicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView()
-        indicator.tintColor = .black
-        indicator.hidesWhenStopped = true
-        indicator.startAnimating()
-        indicator.isHidden = true
-        return indicator
-    }()
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        homeImageView.addSubview(indicator)
-        indicator.center = homeImageView.center
-    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -40,7 +27,6 @@ final class HomeCollectionViewCell: UICollectionViewCell {
         setCornerRadius()
     }
     
-    @available(iOS 13.0, *)
     func setup(model: News) {
         preparePosterImage(with: model.multimedia?[0].url)
         if model.title == "" || model.title == nil {
@@ -53,12 +39,12 @@ final class HomeCollectionViewCell: UICollectionViewCell {
         } else {
             copyrightLabel.text = model.multimedia?[0].copyright
         }
-        DataPersistenceManager.shared.fetchNew { result in
+        DataPersistenceManager.shared.fetchNew { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let favoriteNews):
                     if favoriteNews.firstIndex(where: { $0.title == model.title }) != nil {
-                        self.favoriteImageView.image = UIImage(systemName: "star.fill")
+                        self?.favoriteImageView.image = UIImage(systemName: "star.fill")
                     }
                 case .failure(_):
                     break
@@ -85,8 +71,8 @@ final class HomeCollectionViewCell: UICollectionViewCell {
         guard let fullPath = urlString else { return }
         if let url = URL(string: fullPath) {
             indicator.isHidden = false
-            homeImageView.sd_setImage(with: url) { _,_,_,_ in
-                self.indicator.stopAnimating()
+            homeImageView.sd_setImage(with: url) { [weak self] _,_,_,_ in
+                self?.indicator.stopAnimating()
             }
         }
     }

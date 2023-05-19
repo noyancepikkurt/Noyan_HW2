@@ -8,9 +8,9 @@
 import UIKit
 
 final class LoadingView {
-    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     static let shared = LoadingView()
-    var blurView: UIVisualEffectView = UIVisualEffectView()
+    private var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    private var blurView: UIVisualEffectView = UIVisualEffectView()
     
     private init() {
         configure()
@@ -22,10 +22,7 @@ final class LoadingView {
         blurView.frame = UIWindow(frame: UIScreen.main.bounds).frame
         activityIndicator.center = blurView.center
         activityIndicator.hidesWhenStopped = true
-        if #available(iOS 13.0, *) {
-            activityIndicator.style = .medium
-        } else {
-        }
+        activityIndicator.style = .medium
         activityIndicator.color = .white
         blurView.contentView.addSubview(activityIndicator)
     }
@@ -40,5 +37,4 @@ final class LoadingView {
         blurView.removeFromSuperview()
         activityIndicator.stopAnimating()
     }
-    
 }

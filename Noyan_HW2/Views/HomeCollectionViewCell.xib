@@ -43,6 +43,12 @@
                                     <constraint firstAttribute="width" constant="16" id="sRl-6I-RN0"/>
                                 </constraints>
                             </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="WMI-Zd-KDd">
+                                <rect key="frame" x="110.66666666666667" y="55" width="30.000000000000014" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30.000000000000014" id="JKt-cC-oGn"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -52,12 +58,15 @@
                             <constraint firstItem="cV6-SA-Kb5" firstAttribute="top" secondItem="Wgo-EG-eXn" secondAttribute="bottom" constant="2" id="FpL-iU-0vG"/>
                             <constraint firstItem="Wgo-EG-eXn" firstAttribute="height" secondItem="d0Q-Kz-MJW" secondAttribute="height" multiplier="0.5" id="Gn0-zr-S8n"/>
                             <constraint firstItem="z6R-8q-ULa" firstAttribute="top" secondItem="Wgo-EG-eXn" secondAttribute="bottom" constant="16" id="LxI-C5-acV"/>
+                            <constraint firstItem="WMI-Zd-KDd" firstAttribute="centerY" secondItem="Wgo-EG-eXn" secondAttribute="centerY" id="NcB-DS-Zjo"/>
                             <constraint firstItem="z6R-8q-ULa" firstAttribute="height" secondItem="d0Q-Kz-MJW" secondAttribute="height" multiplier="0.35" id="NkA-Ig-k9q"/>
                             <constraint firstAttribute="trailing" secondItem="cV6-SA-Kb5" secondAttribute="trailing" constant="4" id="SJk-CM-MBO"/>
                             <constraint firstAttribute="trailing" secondItem="QVc-Bu-eEc" secondAttribute="trailing" constant="4" id="YGf-ck-Lvz"/>
                             <constraint firstItem="Wgo-EG-eXn" firstAttribute="leading" secondItem="d0Q-Kz-MJW" secondAttribute="leading" id="ZZU-Fr-Vs5"/>
                             <constraint firstItem="QVc-Bu-eEc" firstAttribute="top" secondItem="z6R-8q-ULa" secondAttribute="bottom" constant="2" id="fym-2M-rl0"/>
+                            <constraint firstItem="WMI-Zd-KDd" firstAttribute="centerX" secondItem="Wgo-EG-eXn" secondAttribute="centerX" id="h3v-D3-beh"/>
                             <constraint firstItem="QVc-Bu-eEc" firstAttribute="leading" secondItem="d0Q-Kz-MJW" secondAttribute="leading" id="hIp-eX-6QB"/>
+                            <constraint firstItem="z6R-8q-ULa" firstAttribute="top" secondItem="WMI-Zd-KDd" secondAttribute="bottom" constant="72" id="n8F-lJ-s33"/>
                             <constraint firstAttribute="bottom" secondItem="QVc-Bu-eEc" secondAttribute="bottom" id="v6c-bx-hHo"/>
                             <constraint firstAttribute="trailing" secondItem="z6R-8q-ULa" secondAttribute="trailing" constant="8" id="y5A-Y8-5bW"/>
                             <constraint firstItem="z6R-8q-ULa" firstAttribute="leading" secondItem="d0Q-Kz-MJW" secondAttribute="leading" constant="8" id="yfg-hR-QH8"/>
@@ -88,6 +97,7 @@
                 <outlet property="favoriteImageView" destination="cV6-SA-Kb5" id="3SI-bN-hWH"/>
                 <outlet property="homeImageView" destination="Wgo-EG-eXn" id="cW0-ha-Ajm"/>
                 <outlet property="homeLabel" destination="z6R-8q-ULa" id="Z7T-ST-dnZ"/>
+                <outlet property="indicator" destination="WMI-Zd-KDd" id="NRN-Dg-B5V"/>
             </connections>
             <point key="canvasLocation" x="254.19847328244273" y="97.183098591549296"/>
         </collectionViewCell>

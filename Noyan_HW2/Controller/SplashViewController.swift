@@ -11,7 +11,7 @@ final class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-            self.performSegue(withIdentifier: "toLoginVCfromSplash", sender: nil)
+            self.performSegue(withIdentifier: SegueIdentifiers.splashToLogin.rawValue, sender: nil)
         }
     }
 }

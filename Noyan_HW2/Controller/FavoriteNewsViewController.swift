@@ -24,7 +24,7 @@ final class FavoriteNewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Favorites"
+        navigationItem.title = NavigationTitles.favoritesVCTitle.rawValue
         favoriteCollectionView.register(cellType: HomeCollectionViewCell.self)
         favoriteCollectionView.setupCollectionView(self.favoriteCollectionView)
     }
@@ -35,10 +35,10 @@ final class FavoriteNewsViewController: UIViewController {
     }
     
     private func fetchNews() {
-        DataPersistenceManager.shared.fetchNew { result in
+        DataPersistenceManager.shared.fetchNew { [weak self] result in
             switch result {
             case .success(let favoriteNews):
-                self.favoriteNews = favoriteNews
+                self?.favoriteNews = favoriteNews
             case .failure(_):
                 break
             }
@@ -59,16 +59,14 @@ extension FavoriteNewsViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.selectedNew = self.favoriteNews[indexPath.item]
-        performSegue(withIdentifier: "toDetailVCfromFavoritesVC", sender: nil)
+        performSegue(withIdentifier: SegueIdentifiers.favoritesToDetail.rawValue, sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toDetailVCfromFavoritesVC" {
-            if #available(iOS 13.0, *) {
-                let destination = segue.destination as? DetailViewController
-                self.selectedNew.isFavorite = true
-                destination?.selectedNewFromFavorite = self.selectedNew
-            }
+        if segue.identifier == SegueIdentifiers.favoritesToDetail.rawValue {
+            let destination = segue.destination as? DetailViewController
+            self.selectedNew.isFavorite = true
+            destination?.selectedNewFromFavorite = self.selectedNew
         }
     }
 }

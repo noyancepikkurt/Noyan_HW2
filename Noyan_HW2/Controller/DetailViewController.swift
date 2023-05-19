@@ -11,7 +11,6 @@ import SDWebImage
 import SafariServices
 import CoreData
 
-@available(iOS 13.0, *)
 final class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
     @IBOutlet private var detailLabel: UILabel!
     @IBOutlet private var detailImageView: UIImageView!
@@ -25,10 +24,10 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
     private var isFavorite: Bool = false {
         didSet {
             if isFavorite {
-                likeImage.image = UIImage(systemName: "star.fill")
+                likeImage.image = UIImage(systemName: FavoriteIcons.favorite.rawValue)
                 likeImage.tintColor = .red
             } else {
-                likeImage.image = UIImage(systemName: "star")
+                likeImage.image = UIImage(systemName: FavoriteIcons.notFavorite.rawValue)
                 likeImage.tintColor = .black
             }
         }
@@ -41,7 +40,7 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Detail"
+        title = NavigationTitles.detailVCTitle.rawValue
         navigationItem.rightBarButtonItem = self.likeImage
         isFavorite = false
         configure()
@@ -54,20 +53,20 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
         if selectedNew?.url != ""  && selectedNew?.url != nil {
             openURL()
         } else {
-            UIAlertController.alertMessage(title: "Error", message: "*There is no website to go*", vc: self)
+            UIAlertController.alertMessage(title: AlertMessage.error.rawValue, message: AlertMessage.noWebsiteUrl.rawValue, vc: self)
         }
     }
     
-    @IBAction func likeImage(_ sender: Any) {
+    @IBAction private func likeImage(_ sender: Any) {
         if let selectedNewFavorite = self.selectedNewFromFavorite {
             if selectedNewFavorite.isFavorite {
-                UIAlertController.alertActionMessage(title: "Remove from your favorites?", message: "Are you sure you want to remove this news from your favorites?", vc: self) { [unowned self] bool in
+                UIAlertController.alertActionMessage(title: AlertMessage.removeFavoritesTitle.rawValue, message: AlertMessage.removeFavoritesMessage.rawValue, vc: self) { [unowned self] bool in
                     if bool {
                         DataPersistenceManager.shared.deleteNew(model: selectedNewFavorite) { result in
                             switch result {
                             case .success(_):
                                 self.isFavorite = false
-                                self.showToast(message: "Removed from favorites", font: .systemFont(ofSize: 12))
+                                self.showToast(message: AlertMessage.removeFavoritesToast.rawValue, font: .systemFont(ofSize: 12))
                                 self.navigationController?.popViewController(animated: true)
                             case .failure(_):
                                 break
@@ -82,13 +81,13 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
         guard let selectedNew else { return }
         if isFavorite {
             if let coreDataNew {
-                UIAlertController.alertActionMessage(title: "Remove from your favorites?", message: "Are you sure you want to remove this news from your favorites?", vc: self) { [unowned self] bool in
+                UIAlertController.alertActionMessage(title: AlertMessage.removeFavoritesTitle.rawValue, message: AlertMessage.removeFavoritesMessage.rawValue, vc: self) { [unowned self] bool in
                     if bool {
-                        DataPersistenceManager.shared.deleteNew(model: coreDataNew) { result in
+                        DataPersistenceManager.shared.deleteNew(model: coreDataNew) { [weak self] result in
                             switch result {
                             case .success(_):
-                                self.isFavorite = false
-                                self.showToast(message: "Removed from favorites", font: .systemFont(ofSize: 12))
+                                self?.isFavorite = false
+                                self?.showToast(message: AlertMessage.removeFavoritesToast.rawValue, font: .systemFont(ofSize: 12))
                             case .failure(_):
                                 break
                             }
@@ -99,16 +98,16 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
                 }
             }
         } else {
-            DataPersistenceManager.shared.saveNew(model: selectedNew, isFavorite: isFavorite) { result in
+            DataPersistenceManager.shared.saveNew(model: selectedNew, isFavorite: isFavorite) { [weak self] result in
                 switch result {
                 case .success(_):
-                    self.isFavorite = true
-                    self.showToast(message: "Added to your favorites", font: .systemFont(ofSize: 12))
+                    self?.isFavorite = true
+                    self?.showToast(message: AlertMessage.addedFavoritesToast.rawValue, font: .systemFont(ofSize: 12))
                     DataPersistenceManager.shared.fetchNew { result in
                         switch result {
                         case .success(let news):
                             for new in news {
-                                self.coreDataNew = new
+                                self?.coreDataNew = new
                             }
                         case .failure(_):
                             break
@@ -122,21 +121,21 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
     }
     
     private func fetchNews() {
-        DataPersistenceManager.shared.fetchNew { result in
+        DataPersistenceManager.shared.fetchNew { [weak self] result in
             switch result {
             case .success(let news):
                 if news.count > 0 {
                     for new in news {
-                        if new.title == self.selectedNew?.title {
-                            self.isFavorite = true
-                            self.coreDataNew = new
+                        if new.title == self?.selectedNew?.title {
+                            self?.isFavorite = true
+                            self?.coreDataNew = new
                         }
                     }
                 } else {
-                    self.isFavorite = false
+                    self?.isFavorite = false
                 }
             case .failure(_):
-                self.isFavorite = false
+                self?.isFavorite = false
             }
         }
     }
@@ -157,7 +156,7 @@ final class DetailViewController: UIViewController, SFSafariViewControllerDelega
             }
             authorDetail.text = selectedNew?.multimedia?[0].copyright
         } else {
-            likeImage.image = UIImage(systemName: "star.fill")
+            likeImage.image = UIImage(systemName: FavoriteIcons.favorite.rawValue)
             likeImage.tintColor = .red
             configureFromFavoriteVC()
         }
