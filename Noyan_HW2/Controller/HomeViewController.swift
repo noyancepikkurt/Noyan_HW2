@@ -52,14 +52,12 @@ final class HomeViewController: UIViewController, LoadingShowable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-        self.collectionView.addSubview(refreshControl)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         tabBarController?.delegate = self
-        collectionView?.setupCollectionView(self.collectionView)
-        collectionView?.register(cellType: HomeCollectionViewCell.self)
-        setupNotFoundImageView()
         self.hideKeyboardWhenTappedAround()
+        setupRefreshControl()
+        setupCollectionView()
+        setupNotFoundImageView()
         fetchNews(type: .home)
         fetchExchange()
         locationManagerConfig()
@@ -248,6 +246,16 @@ final class HomeViewController: UIViewController, LoadingShowable {
         }
     }
     
+    private func setupCollectionView() {
+        collectionView?.setupCollectionView(self.collectionView)
+        collectionView?.register(cellType: HomeCollectionViewCell.self)
+    }
+    
+    private func setupRefreshControl() {
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        collectionView.addSubview(refreshControl)
+    }
+    
     private func setupNotFoundImageView() {
         view.addSubview(notFoundImageView)
         notFoundImageView.isHidden = true
@@ -310,7 +318,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (collectionView.frame.width - 20) / 2, height: 300)
+        return CGSize(width: (collectionView.frame.width - 5) / 2, height: 300)
     }
 }
 
