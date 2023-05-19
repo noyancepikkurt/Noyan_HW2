@@ -24,7 +24,6 @@ To use the application, follow these steps:
 - NYTimes API
 - Exchangerate API
 
-
 ## Screenshots
 <img width="170" src="https://github.com/noyanfmsstech/Noyan_HW2/assets/127404543/e101ed41-f18c-45db-a1cb-f781d961b785"> <img width="170" src="https://github.com/noyanfmsstech/Noyan_HW2/assets/127404543/1c5aa145-beec-443b-99d4-bf3e7744deef">
 <img width="170" src="https://github.com/noyanfmsstech/Noyan_HW2/assets/127404543/644373fa-c7fb-4984-af74-1eaca9266e8d">
@@ -37,6 +36,7 @@ To use the application, follow these steps:
 <img width="170" src="https://github.com/noyanfmsstech/Noyan_HW2/assets/127404543/44b1c82b-efbb-4f87-8e0c-bd2b5154ae1c">
 <img width="170" src="https://github.com/noyanfmsstech/Noyan_HW2/assets/127404543/0be1c646-a403-44e4-a6e5-da667abdb351">
 
-
 ## Demo Video
-https://github.com/noyanfmsstech/Noyan_HW2/assets/127404543/0d602909-e5bc-4a83-9897-79008f740ef1
+https://github.com/noyanfmsstech/Noyan_HW2/assets/127404543/be961b77-fbf2-402a-b253-711d4f56468a
+
+
