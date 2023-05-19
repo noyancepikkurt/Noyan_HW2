@@ -69,7 +69,7 @@
 		5DACF6D72A1779C20069692A /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
 		5DB23DCE2A0C280A00789691 /* ShadowRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowRadius.swift; sourceTree = "<group>"; };
 		5DB23DD02A0C285500789691 /* AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
-		5DB23DD22A0C288500789691 /* NewsAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = NewsAPI; path = ../NewsAPI; sourceTree = "<group>"; };
+		5DB23DD22A0C288500789691 /* NewsAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NewsAPI; sourceTree = "<group>"; };
 		5DB8A3462A0CE68B0097DA51 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		5DB8A3472A0CE68B0097DA51 /* HomeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCollectionViewCell.xib; sourceTree = "<group>"; };
 		5DF4D3442A0D0B8B00A05414 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };

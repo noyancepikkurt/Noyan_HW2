@@ -8,8 +8,8 @@
 import Foundation
 
 public enum NetworkExchangeURL: String {
-    case usdURL = "https://api.exchangerate.host/convert?from=EUR&to=TRY"
-    case euroURL = "https://api.exchangerate.host/convert?from=USD&to=TRY"
+    case usdURL = "https://api.exchangerate.host/convert?from=USD&to=TRY"
+    case euroURL = "https://api.exchangerate.host/convert?from=EUR&to=TRY"
 }
 
 public enum NetworkAPIConstantsWeather: String {
